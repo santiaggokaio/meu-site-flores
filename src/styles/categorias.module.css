@@ -1,0 +1,91 @@
+/* ===============================
+   src/styles/categorias.module.css
+   =============================== */
+
+/* Contêiner para a lista de categorias */
+.categoria-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* Card individual de categoria */
+.categoria-card {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  /* box-shadow com notação moderna de cor e alpha (%) */
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Efeito de hover no card */
+.categoria-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
+}
+
+/* Imagem da categoria */
+.categoria-imagem {
+  display: block;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+/* Conteúdo interno do card */
+.categoria-conteudo {
+  padding: 0.75rem;
+}
+
+/* Título da categoria */
+.categoria-titulo {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: #333;
+}
+
+/* Descrição da categoria */
+.categoria-descricao {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0 0 0.75rem;
+  line-height: 1.4;
+}
+
+/* Link ou botão para ver mais detalhes */
+.categoria-link {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #e63946;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.categoria-link:hover {
+  color: #a62634;
+}
+
+/* Responsividade: ajuste para telas menores */
+@media (max-width: 600px) {
+  .categoria-container {
+    grid-template-columns: 1fr;
+    padding: 0.5rem;
+  }
+
+  .categoria-imagem {
+    height: 120px;
+  }
+
+  .categoria-titulo {
+    font-size: 1rem;
+  }
+
+  .categoria-descricao {
+    font-size: 0.875rem;
+  }
+}

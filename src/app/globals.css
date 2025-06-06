@@ -1,26 +1,57 @@
-@import "tailwindcss";
+/* 1) Coloque os @import no topo, antes de qualquer outro at‐rule */
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
 
+/* 2) Em seguida, as diretivas do Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 3) Importar fontes locais */
+@font-face {
+  font-family: Poppins;
+  src: url("/fonts/Poppins-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Poppins;
+  src: url("/fonts/Poppins-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url("/fonts/Roboto-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 4) Variáveis CSS globais */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-primary: #e6007e;    /* rosa-forte */
+  --color-secondary: #6fcf97;  /* verde-água */
+  --color-gray-light: #f2f2f2; /* cinza-claro */
+  --color-text-dark: #333;     /* antracite */
+  --color-white: #fff;         /* branco */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* 5) Reset e estilos globais adicionais */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Poppins, sans-serif;
+  background-color: var(--color-white);
+  color: var(--color-text-dark);
+  margin: 0;
+  padding: 0;
 }
+
+/* 6) (Opcional) Qualquer reset extra ou normalize pode vir a seguir */

@@ -1,0 +1,22 @@
+{
+  "short_name": "Flores",
+  "name": "Meu Site Flores",
+  "icons": [
+    {
+      "src": "/images/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#a8325f",
+  "display": "standalone",
+  "description": "E-commerce de flores e presentes",
+  "orientation": "portrait"
+}

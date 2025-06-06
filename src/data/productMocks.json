@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "name": "Buquê de Rosas Vermelhas",
+    "price": 89.9,
+    "description": "Buquê elegante com 12 rosas vermelhas importadas.",
+    "image": "/images/rosas-vermelhas.jpg",
+    "category": "buques",
+    "stock": 15,
+    "rating": 4.8
+  },
+  {
+    "id": "2",
+    "name": "Orquídea Branca",
+    "price": 129.9,
+    "description": "Linda orquídea branca plantada em vaso de cerâmica.",
+    "image": "/images/orquidea-branca.jpg",
+    "category": "orquideas",
+    "stock": 8,
+    "rating": 4.5
+  }
+]

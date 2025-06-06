@@ -1,0 +1,15 @@
+[
+  {
+    "id": "user1",
+    "name": "Maria Oliveira",
+    "email": "maria@exemplo.com",
+    "address": {
+      "street": "Rua das Flores",
+      "number": "123",
+      "city": "São Paulo",
+      "state": "SP",
+      "zip": "01234-567"
+    },
+    "orders": []
+  }
+]

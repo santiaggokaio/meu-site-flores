@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // Sobrescreve apenas o "jsx" para que o ts-jest compile o JSX em calls React válidas
+    "jsx": "react-jsx"
+  }
+}
