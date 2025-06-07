@@ -58,5 +58,13 @@
     "tailwindcss": "^3.0.0",
     "ts-jest": "^29.3.4",
     "typescript": "^4.9.0"
+  },
+  "overrides": {
+    "rimraf": "^4.0.0",
+    "glob": "^9.0.0",
+    "abab": "",
+    "domexception": "",
+    "@humanwhocodes/object-schema": "@eslint/object-schema",
+    "@humanwhocodes/config-array": "@eslint/config-array"
   }
 }

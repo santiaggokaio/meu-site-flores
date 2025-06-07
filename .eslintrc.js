@@ -1,14 +1,11 @@
-// .eslintrc.js
-
 module.exports = {
-  root: true, // Garante que este é o arquivo raiz de configuração
+  root: true,
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 2021,
     sourceType: "module",
-    ecmaFeatures: {
-      jsx: true,
-    },
+    ecmaFeatures: { jsx: true },
+    project: ["./tsconfig.json"],
   },
   plugins: [
     "@typescript-eslint",
@@ -18,33 +15,51 @@ module.exports = {
     "import",
   ],
   extends: [
-    "eslint:recommended",                    // Regras básicas do ESLint
-    "plugin:@typescript-eslint/recommended", // Regras recomendadas para TS
-    "plugin:react/recommended",              // Regras recomendadas para React
-    "plugin:react-hooks/recommended",        // Regras de Hook do React
-    "plugin:jsx-a11y/recommended",           // Acessibilidade
-    "plugin:import/errors",                  // Organização de imports
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
-    "next/core-web-vitals",                  // Configuração padrão do Next.js
+    "next/core-web-vitals",
   ],
   settings: {
-    react: {
-      version: "detect", // Detecta automaticamente a versão instalada do React
-    },
+    react: { version: "detect" },
     "import/resolver": {
-      typescript: {}, // Para que o eslint-plugin-import reconheça paths do TS (ex.: "@/context/…")
+      typescript: { project: ["./tsconfig.json"] },
+      node: { extensions: [".js", ".jsx", ".ts", ".tsx"], moduleDirectory: ["node_modules", "src/"] },
     },
   },
   rules: {
-    // Aqui você pode customizar ou desabilitar regras específicas, por exemplo:
-    // "react/prop-types": "off",
-    // "@typescript-eslint/explicit-module-boundary-types": "warn",
+    "import/no-unresolved": "error",
+    "import/named": "error",
+    "import/namespace": "error",
+    "import/no-duplicates": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "react/prop-types": "off",
   },
+  overrides: [
+    {
+      files: [
+        ".eslintrc.js",
+        "jest.config.js",
+        "jest.setup.js",
+        "stylelint.config.js",
+        "tailwind.config.js",
+        "coverage/**",
+        "__mocks__/**",
+        "src/mocks/**",
+      ],
+      parserOptions: { project: null },
+      rules: { "@typescript-eslint/no-var-requires": "off" },
+    },
+  ],
   env: {
     browser: true,
     node: true,
     es6: true,
-    jest: true, // ← Adicionado para que ESLint reconheça globals do Jest em testes
+    jest: true,
   },
 };

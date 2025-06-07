@@ -1,16 +1,25 @@
 'use client';
 
-import React, { ComponentType } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import SliderStatic from 'react-slick';
+import type { ComponentType } from 'react';
 
-// Carregamento dinâmico do Slider, desabilitando SSR
-const Slider = dynamic(() => import('react-slick'), { ssr: false }) as ComponentType<any>;
+// Extrai as props do Slider estático para tipagem correta
+type SliderProps = React.ComponentProps<typeof SliderStatic>;
+
+// Carregamento dinâmico do Slider, sem SSR, com tipagem de SliderProps
+const Slider = dynamic(
+  () => import('react-slick'),
+  { ssr: false }
+) as ComponentType<SliderProps>;
 
 export default function HeroCarousel() {
-  const settings = {
+  // Configurações do slider tipadas via Partial<SliderProps>
+  const settings: Partial<SliderProps> = {
     dots: true,
     infinite: true,
     speed: 300,
@@ -36,27 +45,25 @@ export default function HeroCarousel() {
     ),
   };
 
+  const banners = [
+    '/images/banners/banner1.jpg',
+    '/images/banners/banner2.jpg',
+    // Adicione outros caminhos de banner aqui
+  ];
+
   return (
     <section className="relative w-full h-[400px] overflow-hidden">
       <Slider {...settings}>
-        {/* Exemplos de slides; substitua pelos seus banners reais */}
-        <div className="relative w-full h-[400px]">
-          <Image
-            src="/images/banners/banner1.jpg"
-            alt="Promoção 1"
-            fill
-            className="object-cover"
-          />
-        </div>
-        <div className="relative w-full h-[400px]">
-          <Image
-            src="/images/banners/banner2.jpg"
-            alt="Promoção 2"
-            fill
-            className="object-cover"
-          />
-        </div>
-        {/* Adicione quantos slides precisar */}
+        {banners.map((src, idx) => (
+          <div key={idx} className="relative w-full h-[400px]">
+            <Image
+              src={src}
+              alt={`Promoção ${idx + 1}`}
+              fill
+              className="object-cover"
+            />
+          </div>
+        ))}
       </Slider>
     </section>
   );

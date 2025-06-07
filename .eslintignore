@@ -1,0 +1,13 @@
+# Ignora relatórios de cobertura de testes
+coverage/
+
+# Ignora mocks e arquivos auxiliares de testes
+__mocks__/
+src/mocks/
+
+# Ignora arquivos de configuração fora do escopo do TypeScript
+.eslintrc.js
+jest.config.js
+jest.setup.js
+stylelint.config.js
+tailwind.config.js
