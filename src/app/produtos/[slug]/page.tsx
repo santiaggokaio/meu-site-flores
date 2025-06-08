@@ -1,125 +1,108 @@
+'use client';
+
 import React from 'react';
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
+import Breadcrumb from '@/components/Breadcrumb';
+import ProductImageGallery from './components/ProductImageGallery';
+import ProductDescription from './components/ProductDescription';
+import AddToCartButton from './components/AddToCartButton';
+import RelatedProductsGrid from './components/RelatedProductsGrid';
 import allProducts from '@/data/products.json';
 import { formatCurrency } from '@/utils/formatCurrency';
+import type { Product as RawProduct } from '@/types';
 
-type Params = { slug: string };
-
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  category: string;
-  stock: number;
-  rating: number;
-  // (adicione outros campos do JSON, se houver)
+interface Params {
+  slug: string;
 }
 
-// Metadata para SEO e Open Graph
-export async function generateMetadata(
-  props: {
-    params: Promise<Params>;
-    searchParams: Promise<Record<string, string | string[] | undefined>>;
-  }
-) {
-  const { slug } = await props.params;
-  const product = (allProducts as Product[]).find((p) => p.id === slug);
+// Extend the raw JSON product with `slug` field
+interface Product extends RawProduct {
+  slug: string;
+}
+
+export async function generateStaticParams() {
+  return (allProducts as RawProduct[]).map((p) => ({ slug: p.id }));
+}
+
+export async function generateMetadata({ params }: { params: Params }) {
+  const product = (allProducts as RawProduct[]).find((p) => p.id === params.slug);
   if (!product) {
-    return {
-      title: 'Produto Não Encontrado',
-      description: 'O produto solicitado não foi encontrado.',
-    };
+    return { title: 'Produto não encontrado' };
   }
   return {
     title: `${product.name} – Meu Site Flores`,
-    description: product.description.slice(0, 150),
-    openGraph: {
-      images: [product.image],
-    },
+    description: product.description.substring(0, 150),
+    openGraph: { images: [product.image] },
   };
 }
 
-// Gera rotas estáticas no build time
-export async function generateStaticParams() {
-  return (allProducts as Product[]).map((p) => ({
-    slug: p.id,
-  }));
-}
+export default function ProductPage({ params }: { params: Params }) {
+  const raw = (allProducts as RawProduct[]).find((p) => p.id === params.slug);
+  if (!raw) notFound();
 
-// Página de produto
-export default async function ProductPage(
-  props: {
-    params: Promise<Params>;
-    searchParams: Promise<Record<string, string | string[] | undefined>>;
-  }
-) {
-  const { slug } = await props.params;
-  const product = (allProducts as Product[]).find((p) => p.id === slug);
-  if (!product) {
-    notFound();
-  }
+  // Add slug field
+  const product: Product = { ...raw, slug: raw.id };
+
+  const related: Product[] = (allProducts as RawProduct[])
+    .filter((p) => p.category === product.category && p.id !== product.id)
+    .slice(0, 4)
+    .map((p) => ({ ...p, slug: p.id }));
+
+  const images = [product.image];
 
   return (
-    <main className="container mx-auto px-6 py-16">
-      <div className="md:flex md:gap-12">
-        {/* Imagem principal */}
-        <div className="w-full md:w-1/2 rounded-card overflow-hidden shadow-card mb-8 md:mb-0">
-          <Image
-            src={product.image}
-            alt={product.name}
-            width={600}
-            height={600}
-            className="object-cover w-full h-full"
-          />
+    <main className="container mx-auto px-6 py-12">
+      <Breadcrumb
+        items={[
+          { href: '/', label: 'Home' },
+          { href: '/produtos', label: 'Produtos' },
+          { href: `/produtos/${product.slug}`, label: product.name, current: true },
+        ]}
+      />
+
+      <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div>
+          <ProductImageGallery images={images} />
         </div>
 
-        {/* Informações do produto */}
-        <div className="w-full md:w-1/2 flex flex-col">
-          <h1 className="text-3xl font-semibold text-textDark mb-4 uppercase">
+        <div className="flex flex-col">
+          <h1 className="text-3xl font-bold text-gray-800 mb-4 uppercase">
             {product.name}
           </h1>
-          <p className="text-textDark text-lg mb-4">{formatCurrency(product.price)}</p>
-          <p className="text-textDark leading-relaxed mb-6">
-            {product.description}
+          <p className="text-2xl font-semibold text-pink-600 mb-4">
+            {formatCurrency(product.price)}
           </p>
-          {/* Botão de adicionar ao carrinho */}
-          <button
-            className="w-full md:w-auto bg-primary text-white uppercase py-3 px-8 rounded-button hover:bg-[#C2006D] transition mb-6"
-          >
-            Adicionar ao Carrinho
-          </button>
-          {/* Detalhes adicionais (categoria, estoque, rating) */}
-          <div className="text-textDark text-sm space-y-2">
+          <ProductDescription description={product.description} />
+          <div className="mt-6">
+            <AddToCartButton
+              productId={product.id}
+              name={product.name}
+              price={product.price}
+              image={product.image}
+            />
+          </div>
+          <div className="mt-8 text-gray-600 text-sm space-y-2">
             <p>
-              <span className="font-medium">Categoria: </span>
-              {product.category}
+              <span className="font-medium">Categoria:</span> {product.category}
             </p>
             <p>
-              <span className="font-medium">Em estoque: </span>
-              {product.stock} unidades
+              <span className="font-medium">Em estoque:</span> {product.stock}
             </p>
             <p>
-              <span className="font-medium">Avaliação: </span>
-              {product.rating} / 5
+              <span className="font-medium">Avaliação:</span> {product.rating} / 5
             </p>
           </div>
         </div>
       </div>
 
-      {/* Seções opcionais: comentários, produtos relacionados etc. */}
-      {/* Exemplo de seção de Produtos Relacionados */}
-      <section className="mt-16">
-        <h2 className="text-2xl font-semibold text-textDark mb-6 uppercase">
-          Produtos Relacionados
-        </h2>
-        {/* Aqui você pode reutilizar ProductGrid ou criar um grid manual */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {/* Mapeie seus produtos relacionados */}
-        </div>
-      </section>
+      {related.length > 0 && (
+        <section className="mt-16">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6 uppercase">
+            Produtos Relacionados
+          </h2>
+          <RelatedProductsGrid related={related} />
+        </section>
+      )}
     </main>
   );
 }

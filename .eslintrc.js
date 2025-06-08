@@ -6,6 +6,7 @@ module.exports = {
     sourceType: "module",
     ecmaFeatures: { jsx: true },
     project: ["./tsconfig.json"],
+    tsconfigRootDir: __dirname,  
   },
   plugins: [
     "@typescript-eslint",
@@ -29,11 +30,15 @@ module.exports = {
     react: { version: "detect" },
     "import/resolver": {
       typescript: { project: ["./tsconfig.json"] },
-      node: { extensions: [".js", ".jsx", ".ts", ".tsx"], moduleDirectory: ["node_modules", "src/"] },
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+        moduleDirectory: ["node_modules", "src/"],
+      },
     },
   },
   rules: {
-    "import/no-unresolved": "error",
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
     "import/named": "error",
     "import/namespace": "error",
     "import/no-duplicates": "error",

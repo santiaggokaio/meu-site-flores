@@ -1,13 +1,6 @@
 import React from 'react';
 import ProductCard from '@/components/ProductCard';
-
-interface Product {
-  id: string;
-  slug: string;
-  name: string;
-  price: number;
-  image: string;
-}
+import type { Product } from '@/types';
 
 interface Props {
   related: Product[];
@@ -20,10 +13,9 @@ export default function RelatedProductsGrid({ related }: Props) {
         <ProductCard
           key={prod.id}
           id={prod.id}
-          slug={prod.slug}
-          nome={prod.name}
+          name={prod.name}
           price={prod.price}
-          imageUrl={prod.image}
+          image={prod.image}
         />
       ))}
     </div>

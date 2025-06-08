@@ -1,6 +1,5 @@
-// next.config.ts
-
 import { NextConfig } from 'next';
+import path from 'path';
 
 const nextConfig: NextConfig = {
   // 1. Ajuste de TypeScript (permite warning de tipos em dev)
@@ -12,15 +11,21 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       'example.com',            // ajuste para seu domínio real
-      'cdn.meusiteflores.com',  
-      'images.unsplash.com',
+      'cdn.meusiteflores.com',  // CDN para assets de imagens
+      'images.unsplash.com',    // exemplo de CDN externa
     ],
   },
 
-  // (opcional) outras configurações já existentes...
   reactStrictMode: true,
 
-  // → Removida a linha: swcMinify: true,
+  // 3. Define alias '@' para importar de src com '@/'
+  webpack(config) {
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      '@': path.resolve(__dirname, 'src'),
+    };
+    return config;
+  },
 };
 
 export default nextConfig;

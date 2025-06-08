@@ -1,3 +1,5 @@
+// src/app/layout.tsx
+
 import React from 'react';
 import Head from 'next/head';
 import '@/app/globals.css';
@@ -55,9 +57,7 @@ export default function RootLayout({
       <body>
         <Providers>
           <Header />
-          <main className="pt-[72px]">
-            {children}
-          </main>
+          <main className="pt-[72px]">{children}</main>
           <Footer />
         </Providers>
       </body>

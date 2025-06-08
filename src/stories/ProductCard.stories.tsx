@@ -9,12 +9,11 @@ const meta: Meta<ProductCardProps> = {
 
 export default meta;
 
-// Como ProductCard espera props, passamos args normalmente:
 const Template: StoryFn<ProductCardProps> = (args) => <ProductCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  nome: 'Buquê de Rosas',
+  name: 'Buquê de Rosas',      // antes nome
   price: 79.9,
-  imageUrl: '/imagens/rosas.jpg',
+  image: '/imagens/rosas.jpg', // antes imageUrl
 };
