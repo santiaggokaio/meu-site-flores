@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { notFound } from 'next/navigation';
 import allProducts from '@/data/products.json';
