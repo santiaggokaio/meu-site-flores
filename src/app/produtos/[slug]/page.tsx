@@ -1,52 +1,64 @@
-import React from 'react';
-import { notFound } from 'next/navigation';
-import Breadcrumb from '@/components/Breadcrumb';
-import ProductImageGallery from './components/ProductImageGallery';
-import ProductDescription from './components/ProductDescription';
-import AddToCartButton from './components/AddToCartButton';
-import RelatedProductsGrid from './components/RelatedProductsGrid';
-import allProducts from '@/data/products.json';
-import { formatCurrency } from '@/utils/formatCurrency';
-import type { Product as RawProduct } from '@/types';
+// src/app/produtos/[slug]/page.tsx
+import React from 'react'
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
+import allProducts from '@/data/products.json'
+import Breadcrumb from '@/components/Breadcrumb'
+import ProductImageGallery from './components/ProductImageGallery'
+import ProductDescription from './components/ProductDescription'
+import AddToCartButton from './components/AddToCartButton'
+import RelatedProductsGrid from './components/RelatedProductsGrid'
+import { formatCurrency } from '@/utils/formatCurrency'
+import type { Product as RawProduct } from '@/types'
 
-interface Params {
-  slug: string;
+// Parâmetros da rota
+interface Params { slug: string }
+
+// Props compatível com .next/types/app/produtos/[slug]/page.d.ts
+interface Props {
+  params?: Promise<Params>
+  searchParams?: Promise<Record<string, string>>
 }
 
-// Extend the raw JSON product with `slug` field
-interface Product extends RawProduct {
-  slug: string;
+// 1) rotas estáticas
+export async function generateStaticParams(): Promise<Params[]> {
+  return (allProducts as RawProduct[]).map(p => ({ slug: p.id }))
 }
 
-export async function generateStaticParams() {
-  return (allProducts as RawProduct[]).map((p) => ({ slug: p.id }));
-}
+// 2) metadata
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { slug } = await props.params!
+  const prod = (allProducts as RawProduct[]).find(p => p.id === slug)
 
-export async function generateMetadata({ params }: { params: Params }) {
-  const product = (allProducts as RawProduct[]).find((p) => p.id === params.slug);
-  if (!product) {
-    return { title: 'Produto não encontrado' };
+  if (!prod) {
+    return {
+      title: 'Produto não encontrado',
+      description: 'O produto solicitado não foi encontrado.',
+    }
   }
+
   return {
-    title: `${product.name} – Meu Site Flores`,
-    description: product.description.substring(0, 150),
-    openGraph: { images: [product.image] },
-  };
+    title: `${prod.name} – Meu Site Flores`,
+    description: prod.description.slice(0, 150),
+    openGraph: {
+      images: [prod.image],
+      title: prod.name,
+      description: prod.description.slice(0, 150),
+    },
+  }
 }
 
-export default function ProductPage({ params }: { params: Params }) {
-  const raw = (allProducts as RawProduct[]).find((p) => p.id === params.slug);
-  if (!raw) notFound();
+// 3) Page
+export default async function ProductPage(props: Props) {
+  const { slug } = await props.params!
+  const raw = (allProducts as RawProduct[]).find(p => p.id === slug)
+  if (!raw) notFound()
 
-  // Add slug field
-  const product: Product = { ...raw, slug: raw.id };
-
-  const related: Product[] = (allProducts as RawProduct[])
-    .filter((p) => p.category === product.category && p.id !== product.id)
+  const product = { ...raw, slug: raw.id }
+  const related = (allProducts as RawProduct[])
+    .filter(p => p.category === product.category && p.id !== product.id)
     .slice(0, 4)
-    .map((p) => ({ ...p, slug: p.id }));
-
-  const images = [product.image];
+    .map(p => ({ ...p, slug: p.id }))
 
   return (
     <main className="container mx-auto px-6 py-12">
@@ -57,12 +69,8 @@ export default function ProductPage({ params }: { params: Params }) {
           { href: `/produtos/${product.slug}`, label: product.name, current: true },
         ]}
       />
-
       <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div>
-          <ProductImageGallery images={images} />
-        </div>
-
+        <ProductImageGallery images={[product.image]} />
         <div className="flex flex-col">
           <h1 className="text-3xl font-bold text-gray-800 mb-4 uppercase">
             {product.name}
@@ -80,15 +88,9 @@ export default function ProductPage({ params }: { params: Params }) {
             />
           </div>
           <div className="mt-8 text-gray-600 text-sm space-y-2">
-            <p>
-              <span className="font-medium">Categoria:</span> {product.category}
-            </p>
-            <p>
-              <span className="font-medium">Em estoque:</span> {product.stock}
-            </p>
-            <p>
-              <span className="font-medium">Avaliação:</span> {product.rating} / 5
-            </p>
+            <p><span className="font-medium">Categoria:</span> {product.category}</p>
+            <p><span className="font-medium">Em estoque:</span> {product.stock}</p>
+            <p><span className="font-medium">Avaliação:</span> {product.rating} / 5</p>
           </div>
         </div>
       </div>
@@ -102,5 +104,5 @@ export default function ProductPage({ params }: { params: Params }) {
         </section>
       )}
     </main>
-  );
+  )
 }

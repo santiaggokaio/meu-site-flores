@@ -1,44 +1,50 @@
-import React from 'react';
-import { notFound } from 'next/navigation';
-import allProducts from '@/data/products.json';
-import Breadcrumb from '@/components/Breadcrumb';
-import SidebarFilters from '@/components/SidebarFilters';
-import ProductGrid from '@/app/produtos/components/ProductGrid';
-import { categoriasData } from '@/data/categoriasData';
-import type { Category, Product } from '@/types';
+// src/app/categorias/[slug]/page.tsx
+import React from 'react'
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
+import allProducts from '@/data/products.json'
+import Breadcrumb from '@/components/Breadcrumb'
+import SidebarFilters from '@/components/SidebarFilters'
+import ProductGrid from '@/app/produtos/components/ProductGrid'
+import { categoriasData } from '@/data/categoriasData'
+import type { Category, Product } from '@/types'
 
-interface Params {
-  slug: string;
-}
-
+// 1) rotas estáticas
 export async function generateStaticParams() {
-  return (categoriasData as Category[]).map((cat) => ({ slug: cat.slug }));
+  return categoriasData.map((cat: Category) => ({ slug: cat.slug }))
 }
 
-export async function generateMetadata({ params }: { params: Params }) {
-  const cat = (categoriasData as Category[]).find((c) => c.slug === params.slug);
+// 2) Props compatível com .next/types/app/categorias/[slug]/page.d.ts
+interface Props {
+  params?: Promise<{ slug: string }>
+  searchParams?: Promise<Record<string, string>>
+}
+
+// 3) metadata
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { slug } = await props.params!
+  const cat = categoriasData.find(c => c.slug === slug)
   if (!cat) {
     return {
       title: 'Categoria não encontrada',
       description: 'A categoria solicitada não foi encontrada.',
-    };
+    }
   }
   return {
     title: `${cat.name} – Meu Site Flores`,
     description: cat.description,
-  };
+  }
 }
 
-export default function Page({ params }: { params: Params }) {
-  const cat = (categoriasData as Category[]).find((c) => c.slug === params.slug);
-
-  if (!cat) {
-    notFound();
-  }
+// 4) Page
+export default async function Page(props: Props) {
+  const { slug } = await props.params!
+  const cat = categoriasData.find(c => c.slug === slug)
+  if (!cat) notFound()
 
   const productsInCategory = (allProducts as Product[]).filter(
-    (p) => p.category === params.slug
-  );
+    p => p.category === slug
+  )
 
   return (
     <main className="container mx-auto px-6 py-12">
@@ -46,10 +52,9 @@ export default function Page({ params }: { params: Params }) {
         items={[
           { href: '/', label: 'Home' },
           { href: '/categorias', label: 'Categorias' },
-          { href: `/categorias/${cat.slug}`, label: cat.name, current: true },
+          { href: `/categorias/${slug}`, label: cat.name, current: true },
         ]}
       />
-
       <div className="mt-6 grid grid-cols-1 lg:grid-cols-4 gap-8">
         <aside className="lg:col-span-1">
           <SidebarFilters />
@@ -66,5 +71,5 @@ export default function Page({ params }: { params: Params }) {
         </section>
       </div>
     </main>
-  );
+  )
 }

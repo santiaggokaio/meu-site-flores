@@ -1,53 +1,62 @@
 // src/app/busca/BuscarClient.tsx
+'use client'
 
-"use client";
+import { useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import type { Product } from '@/types'
+import ProductGrid from '@/app/produtos/components/ProductGrid'
 
-import React from 'react';
-import { useSearchParams } from 'next/navigation';
-import allProducts from '@/data/products.json';
-import ProductCard from '@/app/home/components/ProductCard';
-
-// Extende o tipo para contemplar todos os campos usados pelo ProductCard
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  // Se o JSON tiver mais propriedades (por exemplo, "category", "rating", etc.),
-  // você pode declará‐las aqui também, ou usar [key: string]: unknown para permitir campos extras.
-  [key: string]: unknown;
+interface BuscarClientProps {
+  products: Product[]
 }
 
-export default function BuscarClient() {
-  const params = useSearchParams();
-  const query = params.get('q') ?? '';
+export default function BuscarClient({ products }: BuscarClientProps) {
+  const params = useSearchParams()
+  const router = useRouter()
+  const initialQuery = params.get('q') ?? ''
+  const [query, setQuery] = useState(initialQuery)
+  const [results, setResults] = useState<Product[]>(products)
 
-  // Agora completa a tipagem corretamente
-  const products = allProducts as Product[];
+  useEffect(() => {
+    const lower = query.toLowerCase()
+    setResults(products.filter(p => p.name.toLowerCase().includes(lower)))
+    router.replace(`/busca?q=${encodeURIComponent(query)}`, { scroll: false })
+  }, [query, products, router])
 
-  // Filtra produtos cujo nome ou descrição inclua a query
-  const results = products.filter((p) =>
-    p.name.toLowerCase().includes(query.toLowerCase()) ||
-    p.description.toLowerCase().includes(query.toLowerCase())
-  );
-
-  if (!query) {
-    return <p>Por favor, insira um termo de busca na URL (?q=).</p>;
-  }
-
-  if (results.length === 0) {
-    return <p>Nenhum produto encontrado para “{query}”.</p>;
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = e => {
+    e.preventDefault()
+    const value = (e.currentTarget.elements.namedItem('search') as HTMLInputElement)
+      .value
+    setQuery(value)
   }
 
   return (
-    <section>
-      <h1>Resultados para “{query}”</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {results.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-    </section>
-  );
+    <>
+      <form onSubmit={onSubmit} className="mt-6 flex gap-2">
+        <input
+          name="search"
+          defaultValue={query}
+          type="text"
+          placeholder="O que você procura?"
+          className="flex-1 border rounded-full px-4 py-2 focus:border-pink-600"
+        />
+        <button
+          type="submit"
+          className="bg-pink-600 text-white px-6 py-2 rounded-full hover:bg-pink-700"
+        >
+          Buscar
+        </button>
+      </form>
+
+      <h2 className="text-2xl font-bold mt-8 mb-4">
+        {results.length} produto{results.length !== 1 && 's'}
+      </h2>
+
+      {results.length === 0 ? (
+        <p className="text-gray-600">Nenhum produto corresponde à sua busca.</p>
+      ) : (
+        <ProductGrid products={results} />
+      )}
+    </>
+  )
 }
