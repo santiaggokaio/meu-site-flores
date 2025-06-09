@@ -9,11 +9,11 @@ const meta: Meta<ProductCardProps> = {
 
 export default meta;
 
-const Template: StoryFn<ProductCardProps> = (args) => <ProductCard {...args} />;
+const Template: StoryFn<ProductCardProps> = (args: ProductCardProps) => <ProductCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  name: 'Buquê de Rosas',      // antes nome
+  name: 'Buquê de Rosas',
   price: 79.9,
-  image: '/imagens/rosas.jpg', // antes imageUrl
+  image: '/imagens/rosas.jpg',
 };
