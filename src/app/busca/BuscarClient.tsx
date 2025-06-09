@@ -1,10 +1,11 @@
 // src/app/busca/BuscarClient.tsx
-'use client'
 
+'use client'
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import type { Product } from '@/types'
 import ProductGrid from '@/app/produtos/components/ProductGrid'
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 
 interface BuscarClientProps {
   products: Product[]
@@ -44,6 +45,7 @@ export default function BuscarClient({ products }: BuscarClientProps) {
           type="submit"
           className="bg-pink-600 text-white px-6 py-2 rounded-full hover:bg-pink-700"
         >
+          <MagnifyingGlassIcon className="w-5 h-5" />
           Buscar
         </button>
       </form>

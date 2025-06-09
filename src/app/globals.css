@@ -1,13 +1,13 @@
-/* 1) Coloque os @import no topo, antes de qualquer outro at‐rule */
+/* 1) Coloque os @import no topo */
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
 
-/* 2) Em seguida, as diretivas do Tailwind */
+/* 2) Diretivas do Tailwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 3) Importar fontes locais */
+/* 3) Fontes locais */
 @font-face {
   font-family: Poppins;
   src: url("/fonts/Poppins-Regular.woff2") format("woff2");
@@ -16,32 +16,15 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: Poppins;
-  src: url("/fonts/Poppins-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Roboto;
-  src: url("/fonts/Roboto-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* … demais @font-face … */
 
 /* 4) Variáveis CSS globais */
 :root {
-  --color-primary: #e6007e;    /* rosa-forte */
-  --color-secondary: #6fcf97;  /* verde-água */
-  --color-gray-light: #f2f2f2; /* cinza-claro */
-  --color-text-dark: #333;     /* antracite */
-  --color-white: #fff;         /* branco */
+  /* … */
 }
 
-/* 5) Reset e estilos globais adicionais */
+/* 5) Reset e estilos globais */
+
 html {
   scroll-behavior: smooth;
 }
@@ -54,4 +37,4 @@ body {
   padding: 0;
 }
 
-/* 6) (Opcional) Qualquer reset extra ou normalize pode vir a seguir */
+/* 6) resets extras */

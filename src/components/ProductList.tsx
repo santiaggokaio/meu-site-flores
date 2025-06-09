@@ -1,35 +1,18 @@
-'use client';
+'use client'
 
-import React from 'react';
-import ProductCard from '@/app/produtos/components/ProductCard';
+import { Product } from '@/types'
+import { ProductCard } from '@/components/ProductCard'
 
-type Props = {
-  products: Array<{
-    id: string;
-    slug: string;
-    name: string;
-    price: number;
-    image: string;
-  }>;
-};
+interface ProductListProps {
+  products: Product[]
+}
 
-export default function ProductList({ products }: Props) {
+export default function ProductList({ products }: ProductListProps) {
   return (
-    <section aria-label="Lista de produtos">
-      <div className="grid grid-cols-4 gap-6">
-        {products.map((p) => (
-          <ProductCard
-            key={p.id}
-            product={{
-              id: p.id,
-              slug: p.slug,
-              name: p.name,
-              price: p.price,
-              image: p.image,
-            }}
-          />
-        ))}
-      </div>
-    </section>
-  );
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {products.map((p) => (
+        <ProductCard key={p.id} product={p} />
+      ))}
+    </div>
+  )
 }

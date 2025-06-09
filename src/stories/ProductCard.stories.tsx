@@ -1,19 +1,22 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react';
-import ProductCard, { ProductCardProps } from '../components/ProductCard';
+import React from 'react'
+import { ProductCard } from '@/components/ProductCard'
+import { Product } from '@/types'
 
-const meta: Meta<ProductCardProps> = {
-  title: 'Componentes/ProductCard',
+export default {
+  title: 'Components/ProductCard',
   component: ProductCard,
-};
+}
 
-export default meta;
+const sampleProduct: Product = {
+  id: '1',
+  slug: 'rosa-magica',
+  name: 'Rosa Mágica',
+  description: 'Rosas vermelhas em um buquê elegante.',
+  price: 99.9,
+  image: '/products/rosa-magica.jpg',
+  category: 'buques',
+  stock: 10,
+  rating: 4.5,
+}
 
-const Template: StoryFn<ProductCardProps> = (args: ProductCardProps) => <ProductCard {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  name: 'Buquê de Rosas',
-  price: 79.9,
-  image: '/imagens/rosas.jpg',
-};
+export const Default = () => <ProductCard product={sampleProduct} />

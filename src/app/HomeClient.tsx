@@ -1,28 +1,32 @@
+// src/app/HomeClient.tsx
+
 'use client';
 
 import React from 'react';
 import Image from 'next/image';
-import HeroCarousel from '@/app/home/components/HeroCarousel';
-import TrustBadges from '@/components/trust/TrustBadges';
+import HeroBanner from '@/components/HeroBanner';
+import TrustSection from '@/components/TrustSection';
+import OffersSection from '@/components/OffersSection';
 import CategoriesGrid from '@/components/CategoriesGrid';
-// … outros imports de componentes da home, se houver
 
 export default function HomeClient() {
   return (
     <main>
-      {/* Exemplo de logo local */}
-      <Image
-        src="/images/logo.png"
-        alt="Logotipo Meu Site Flores"
-        width={200}
-        height={100}
-      />
+      {/* Logo */}
+      <div className="flex justify-center py-8">
+        <Image
+          src="/images/logo.png"
+          alt="Logotipo Meu Site Flores"
+          width={200}
+          height={100}
+        />
+      </div>
 
-      {/* Componentes principais da home */}
-      <HeroCarousel />
-      <TrustBadges />
+      {/* Seções principais */}
+      <HeroBanner />
+      <TrustSection />
+      <OffersSection />
       <CategoriesGrid />
-      {/* … demais seções da home … */}
     </main>
   );
 }

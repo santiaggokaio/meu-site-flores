@@ -1,33 +1,18 @@
-'use client';
+'use client'
 
-import React from 'react';
-import ProductCard from '@/app/produtos/components/ProductCard';
+import { Product } from '@/types'
+import { ProductCard } from '@/components/ProductCard'
 
-type Props = {
-  products: Array<{
-    id: string;
-    slug: string;
-    name: string;
-    price: number;
-    image: string;
-  }>;
-};
+interface ListaDeProdutosProps {
+  products: Product[]
+}
 
-export default function ListaDeProdutos({ products }: Props) {
+export default function ListaDeProdutos({ products }: ListaDeProdutosProps) {
   return (
-    <div className="grid grid-cols-4 gap-6">
+    <div className="space-y-4">
       {products.map((p) => (
-        <ProductCard
-          key={p.id}
-          product={{
-            id: p.id,
-            slug: p.slug,
-            name: p.name,
-            price: p.price,
-            image: p.image,
-          }}
-        />
+        <ProductCard key={p.id} product={p} />
       ))}
     </div>
-  );
+  )
 }

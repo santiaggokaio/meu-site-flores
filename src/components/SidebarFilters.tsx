@@ -1,47 +1,38 @@
-import React from 'react';
+'use client'
+
+import { useState } from 'react'
+import { FunnelIcon } from '@heroicons/react/24/outline'
 
 export default function SidebarFilters() {
+  const [open, setOpen] = useState(false)
+
   return (
-    <aside aria-label="Filtros de produtos" className="bg-white rounded-card shadow-card p-6 mb-8">
-      <h2 className="text-lg font-semibold text-textDark mb-4 uppercase">Filtros</h2>
-
-      {/* Filtro por Categoria */}
-      <div className="mb-6">
-        <label htmlFor="category" className="block text-textDark font-medium mb-2">
-          Categoria
-        </label>
-        <select
-          id="category"
-          aria-label="Selecione uma categoria"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-primary"
-        >
-          <option value="">Todas</option>
-          {/* Popule dinamicamente conforme categorias */}
-        </select>
-      </div>
-
-      {/* Filtro por Faixa de Preço */}
-      <div>
-        <label htmlFor="price" className="block text-textDark font-medium mb-2">
-          Faixa de Preço
-        </label>
-        {/* Aqui entraria um componente PriceRangeSlider, estilizado assim: */}
-        <div className="w-full">
-          {/* Exemplo de mock de slider (substitua pelo seu PriceRangeSlider) */}
-          <input
-            type="range"
-            id="price"
-            name="price"
-            min="0"
-            max="1000"
-            className="w-full h-2 bg-grayLight rounded-lg appearance-none cursor-pointer"
-          />
-          <div className="flex justify-between text-sm text-textDark mt-1">
-            <span>R$ 0</span>
-            <span>R$ 1.000</span>
-          </div>
+    <>
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center space-x-2 text-sm font-medium text-gray-600 hover:text-gray-900 md:hidden"
+      >
+        <FunnelIcon className="h-5 w-5" />
+        <span>Filtrar</span>
+      </button>
+      <aside
+        className={`${
+          open ? 'block' : 'hidden'
+        } md:block w-full md:w-60 bg-white border-r mt-4 md:mt-0`}
+      >
+        <div className="p-4 space-y-4">
+          <h3 className="text-lg font-semibold text-gray-900">Categorias</h3>
+          <ul className="space-y-2">
+            <li>
+              <label className="flex items-center space-x-2">
+                <input type="checkbox" className="form-checkbox" />
+                <span>Buquês</span>
+              </label>
+            </li>
+            {/* ... demais itens ... */}
+          </ul>
         </div>
-      </div>
-    </aside>
-  );
+      </aside>
+    </>
+  )
 }

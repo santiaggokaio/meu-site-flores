@@ -1,23 +1,18 @@
-import React from 'react';
-import ProductCard from '@/components/ProductCard';
-import type { Product } from '@/types';
+'use client'
 
-interface Props {
-  related: Product[];
+import { Product } from '@/types'
+import { ProductCard } from '@/components/ProductCard'
+
+interface RelatedProductsGridProps {
+  products: Product[]
 }
 
-export default function RelatedProductsGrid({ related }: Props) {
+export default function RelatedProductsGrid({ products }: RelatedProductsGridProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-      {related.map((prod) => (
-        <ProductCard
-          key={prod.id}
-          id={prod.id}
-          name={prod.name}
-          price={prod.price}
-          image={prod.image}
-        />
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {products.map((p) => (
+        <ProductCard key={p.id} product={p} />
       ))}
     </div>
-  );
+  )
 }

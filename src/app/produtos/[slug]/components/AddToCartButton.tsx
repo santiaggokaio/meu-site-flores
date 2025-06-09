@@ -1,32 +1,29 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { useCart } from '@/context/CartContext';
+import { useCart } from '@/context/CartContext'
+import { Product } from '@/types'
 
 interface Props {
-  productId: string;
-  name: string;
-  price: number;
-  image: string;
+  product: Product
 }
 
-export default function AddToCartButton({ productId, name, price, image }: Props) {
-  const { addToCart } = useCart();
+export default function AddToCartButton({ product }: Props) {
+  const { addToCart } = useCart()
 
   return (
     <button
       onClick={() =>
         addToCart({
-          id: productId,
-          name,
-          price,
+          id: product.id,
+          name: product.name,
+          price: product.price,
           quantity: 1,
-          image,
+          image: product.image,
         })
       }
       className="w-full md:w-auto bg-primary text-white uppercase py-3 px-8 rounded-button hover:bg-[#C2006D] transition"
     >
       Adicionar ao Carrinho
     </button>
-  );
+  )
 }

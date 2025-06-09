@@ -1,94 +1,66 @@
-// src/components/ProductCard.tsx
+'use client'
 
-'use client';
+import Image from 'next/image'
+import Link from 'next/link'
+import { HeartIcon } from '@heroicons/react/24/outline'
+import { Product } from '@/types'
+import { formatPrice } from '@/utils/format'
+import AddToCartButton from '@/app/produtos/[slug]/components/AddToCartButton'
+import { useWishlist } from '@/context/WishlistContext'
 
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useCart } from '@/context/CartContext';
-import { formatCurrency } from '@/utils/formatCurrency';
-
-export interface ProductCardProps {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  discountPercent?: number;
+interface ProductCardProps {
+  product: Product
 }
 
-export default function ProductCard({
-  id,
-  name,
-  price,
-  image,
-  discountPercent,
-}: ProductCardProps) {
-  const { addToCart } = useCart();
+export function ProductCard({ product }: ProductCardProps) {
+  // Ajuste conforme o shape real do seu WishlistContext
+  const { items, addToWishlist, removeFromWishlist } = useWishlist()
+  const isWishlisted = items.some(item => item.id === product.id)
+
+  const handleWishlistToggle = () => {
+    if (isWishlisted) {
+      removeFromWishlist(product.id)
+    } else {
+      // Constrói o WishlistItem a partir do Product
+      addToWishlist({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        imageUrl: product.image, // campo requerido pelo WishlistItem
+      })
+    }
+  }
 
   return (
-    <div className="relative bg-white rounded-2xl shadow-lg overflow-hidden group flex flex-col">
-      <Link href={`/produtos/${id}`} className="block">
-        <div className="w-full h-56 relative">
-          <Image
-            src={image}
-            alt={name}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-            priority
-          />
-          {discountPercent && (
-            <span className="absolute top-2 left-2 bg-pink-600 text-white text-xs font-bold px-2 py-1 rounded-md">
-              –{discountPercent}%
-            </span>
-          )}
-          <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <button aria-label="Adicionar aos favoritos">
-              <Image
-                src="/assets/icons/heart.svg"
-                alt="Wishlist"
-                width={20}
-                height={20}
-              />
-            </button>
-            <button aria-label="Comparar produto">
-              <Image
-                src="/assets/icons/compare.svg"
-                alt="Compare"
-                width={20}
-                height={20}
-              />
-            </button>
-          </div>
-        </div>
-        <div className="p-4">
-          <h3 className="text-base font-semibold text-gray-800 mb-2">{name}</h3>
-          <div className="flex items-center">
-            {discountPercent && (
-              <span className="text-sm text-gray-500 line-through mr-2">
-                {formatCurrency(price * (1 + discountPercent / 100))}
-              </span>
-            )}
-            <span className="text-lg font-bold text-pink-600">
-              {formatCurrency(price)}
-            </span>
-          </div>
-        </div>
-      </Link>
+    <div className="relative border rounded-lg p-4 shadow-sm hover:shadow-md transition">
       <button
-        onClick={() =>
-          addToCart({
-            id,
-            name,
-            price,
-            quantity: 1,
-            image,
-          })
-        }
-        aria-label="Adicionar ao carrinho"
-        className="mt-auto w-full bg-pink-600 text-white uppercase py-2 rounded-full hover:bg-pink-700 transition"
+        onClick={handleWishlistToggle}
+        className={`absolute top-2 right-2 p-1 rounded-full ${
+          isWishlisted ? 'text-rose-500' : 'text-gray-400'
+        }`}
+        aria-label="Favoritar"
       >
-        Comprar
+        <HeartIcon className="h-5 w-5" />
       </button>
+
+      <Link href={`/produtos/${product.slug}`}>
+        <Image
+          src={product.image}
+          alt={product.name}
+          width={300}
+          height={300}
+          className="w-full h-60 object-cover rounded-md"
+        />
+        <h3 className="mt-2 text-sm font-medium text-gray-900">{product.name}</h3>
+        <p className="text-sm text-gray-500">{product.description}</p>
+        <p className="mt-1 text-base font-semibold text-rose-600">
+          {formatPrice(product.price)}
+        </p>
+      </Link>
+
+      <div className="mt-2">
+        <AddToCartButton product={product} />
+      </div>
     </div>
-  );
+  )
 }

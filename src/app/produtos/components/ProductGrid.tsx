@@ -1,31 +1,18 @@
-import React from 'react';
-import ProductCard from './ProductCard';
+'use client'
 
-type Product = {
-  id: string;
-  slug: string;
-  name: string;
-  price: number;
-  image: string;
-};
+import { Product } from '@/types'
+import ProductCard from '@/app/produtos/components/ProductCard'
 
-export default function ProductGrid({ products }: { products: Product[] }) {
+interface ProductGridProps {
+  products: Product[]
+}
+
+export default function ProductGrid({ products }: ProductGridProps) {
   return (
-    <section aria-label="Lista de produtos">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {products.map((p) => (
-          <ProductCard
-            key={p.id}
-            product={{
-              id: p.id,
-              slug: p.slug,
-              name: p.name,
-              price: p.price,
-              image: p.image,
-            }}
-          />
-        ))}
-      </div>
-    </section>
-  );
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {products.map((p) => (
+        <ProductCard key={p.id} product={p} />
+      ))}
+    </div>
+  )
 }
