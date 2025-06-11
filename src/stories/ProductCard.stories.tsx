@@ -2,10 +2,12 @@ import React from 'react'
 import { ProductCard } from '@/components/ProductCard'
 import { Product } from '@/types'
 
-export default {
+const meta = {
   title: 'Components/ProductCard',
   component: ProductCard,
-}
+};
+
+export default meta;
 
 const sampleProduct: Product = {
   id: '1',

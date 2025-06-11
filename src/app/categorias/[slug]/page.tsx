@@ -21,7 +21,10 @@ interface Props {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { slug } = await props.params!;
+  const params = await props.params;                  // ← sem `!`
+  if (!params) throw new Error('Params não fornecidos');
+  const { slug } = params;
+
   const cat = categoriasData.find((c) => c.slug === slug);
   if (!cat) {
     return {
@@ -36,7 +39,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function Page(props: Props) {
-  const { slug } = await props.params!;
+  const params = await props.params;                  // ← sem `!`
+  if (!params) notFound();
+  const { slug } = params;
+
   const cat = categoriasData.find((c) => c.slug === slug);
   if (!cat) notFound();
 

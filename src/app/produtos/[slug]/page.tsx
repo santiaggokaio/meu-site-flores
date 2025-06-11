@@ -25,9 +25,11 @@ export async function generateStaticParams(): Promise<Params[]> {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { slug } = await props.params!;
-  const prod = (allProducts as RawProduct[]).find((p) => p.id === slug);
+  const params = await props.params;                  // ← sem `!`
+  if (!params) throw new Error('Params não fornecidos');
+  const { slug } = params;
 
+  const prod = (allProducts as RawProduct[]).find((p) => p.id === slug);
   if (!prod) {
     return {
       title: 'Produto não encontrado',
@@ -47,7 +49,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function ProductPage(props: Props) {
-  const { slug } = await props.params!;
+  const params = await props.params;                  // ← sem `!`
+  if (!params) notFound();
+  const { slug } = params;
+
   const raw = (allProducts as RawProduct[]).find((p) => p.id === slug);
   if (!raw) notFound();
 
@@ -55,7 +60,7 @@ export default async function ProductPage(props: Props) {
   const related = (allProducts as RawProduct[])
     .filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, 4)
-    .map((p) => ({ ...p, slug: p.id }));
+    .map((p) => ({ ...p, slug: p.id }))
 
   return (
     <main className="container mx-auto px-6 py-12">
