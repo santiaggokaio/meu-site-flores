@@ -1,26 +1,40 @@
-// src/app/layout.tsx
-
-import React from 'react';
-import Head from 'next/head';
+import React, { Suspense } from 'react';
 import '@/app/globals.css';
-import Providers from './providers';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import '@/app/slick-overrides.css';
+import Providers from '@/app/providers';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import TrustBadges from '@/components/trust/TrustBadges';
+import Loader from '@/components/Loader';
+
+// Export dedicado para o viewport:
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
 
 export const metadata = {
   title: 'Meu Site Flores',
   description: 'E-commerce de flores e presentes',
+
+  icons: {
+    icon: '/favicon.ico',
+  },
+
+  // Font preloading e outros metadados
+  alternates: {}
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <html lang="pt-BR">
-      <Head>
-        {/* Pré-carregar fontes */}
+      <head>
         <link
           rel="preload"
           href="/fonts/Poppins-Regular.woff2"
@@ -42,23 +56,28 @@ export default function RootLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
-
-        {/* Meta de CSP */}
-        <meta
-          httpEquiv="Content-Security-Policy"
-          content={`
-            default-src 'self';
-            img-src 'self' https://example.com https://images.unsplash.com;
-            script-src 'self' 'unsafe-inline';
-            style-src 'self' 'unsafe-inline';
-          `}
-        />
-      </Head>
-      <body>
+      </head>
+      <body className="flex min-h-screen flex-col bg-white font-sans text-gray-800">
         <Providers>
-          <Header />
-          <main className="pt-[72px]">{children}</main>
-          <Footer />
+          {/* Header with Suspense */}
+          <Suspense fallback={<Loader />}>
+            <Header />
+          </Suspense>
+
+          {/* Main content area */}
+          <main role="main" className="flex-1 px-4 pt-20 md:px-8 lg:px-16">
+            <Suspense fallback={<Loader />}>{children}</Suspense>
+          </main>
+
+          {/* Trust badges section */}
+          <Suspense fallback={<Loader />}>
+            <TrustBadges />
+          </Suspense>
+
+          {/* Footer */}
+          <Suspense fallback={<Loader />}>
+            <Footer />
+          </Suspense>
         </Providers>
       </body>
     </html>
