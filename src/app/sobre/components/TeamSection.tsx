@@ -15,7 +15,7 @@ export default function TeamSection() {
       <div className="grid grid-cols-3 gap-6">
         {teamData.map((member) => (
           <div key={member.id} className="text-center">
-            <div className="relative w-32 h-32 mx-auto">
+            <div className="relative mx-auto size-32">
               <Image
                 src={member.avatarUrl}
                 alt={`Foto de ${member.name}`}

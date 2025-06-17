@@ -6,7 +6,6 @@ import type { Metadata } from 'next';
 import allProducts from '@/data/products.json';
 import Breadcrumb from '@/components/Breadcrumb';
 import SidebarFilters from '@/components/SidebarFilters';
-// ← Ajuste: ProductGrid vem de src/app/produtos/components/ProductGrid.tsx
 import ProductGrid from '@/app/produtos/components/ProductGrid';
 import { categoriasData } from '@/data/categoriasData';
 import type { Category, Product } from '@/types';
@@ -15,16 +14,14 @@ export async function generateStaticParams() {
   return categoriasData.map((cat: Category) => ({ slug: cat.slug }));
 }
 
+// Ajuste: params não é opcional, é Promise<{ slug: string }>
 interface Props {
-  params?: Promise<{ slug: string }>;
-  searchParams?: Promise<Record<string, string>>;
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<Record<string, string>>;
 }
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
-  const params = await props.params;                  // ← sem `!`
-  if (!params) throw new Error('Params não fornecidos');
-  const { slug } = params;
-
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
   const cat = categoriasData.find((c) => c.slug === slug);
   if (!cat) {
     return {
@@ -38,11 +35,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   };
 }
 
-export default async function Page(props: Props) {
-  const params = await props.params;                  // ← sem `!`
-  if (!params) notFound();
-  const { slug } = params;
-
+export default async function Page({ params }: Props) {
+  const { slug } = await params;
   const cat = categoriasData.find((c) => c.slug === slug);
   if (!cat) notFound();
 
@@ -60,12 +54,12 @@ export default async function Page(props: Props) {
         ]}
       />
 
-      <div className="mt-6 grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-4">
         <aside className="lg:col-span-1">
           <SidebarFilters />
         </aside>
         <section className="lg:col-span-3">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4 uppercase">
+          <h1 className="mb-4 text-2xl font-bold uppercase text-gray-800">
             {cat.name}
           </h1>
           {productsInCategory.length === 0 ? (

@@ -1,9 +1,7 @@
+// src/app/faqs/page.tsx
 import React from 'react';
 import FAQAccordion from './components/FAQAccordion';
-// Se usar alias @ (Opção A):
-import faqs from '../../data/faqs';
-// Ou, se preferir caminho relativo (Opção B):
-// import faqs from '../../data/faqs';
+import { getFaqs } from '../../data/faqs';
 
 export async function generateMetadata() {
   return {
@@ -12,11 +10,15 @@ export async function generateMetadata() {
   };
 }
 
-export default function FaqsPage() {
+export default async function FaqsPage() {
+  // Busca o array (imutável) de FAQs
+  const faqsList = await getFaqs();
+
   return (
     <main className="container mx-auto px-6 py-16">
-      <h1 className="text-3xl font-semibold text-textDark mb-8 uppercase">FAQs</h1>
-      <FAQAccordion faqs={faqs} />
+      <h1 className="mb-8 text-3xl font-semibold uppercase text-textDark">FAQs</h1>
+      {/* Passa o array de FAQs para o componente de acordeão */}
+      <FAQAccordion faqs={faqsList} />
     </main>
   );
 }

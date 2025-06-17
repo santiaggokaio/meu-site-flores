@@ -102,7 +102,7 @@ export default function ContactForm() {
         />
         {errors.message && <div role="alert">{errors.message}</div>}
       </div>
-      <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded">
+      <button type="submit" className="rounded bg-blue-600 px-4 py-2 text-white">
         Enviar
       </button>
     </form>

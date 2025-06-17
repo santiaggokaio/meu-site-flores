@@ -4,7 +4,7 @@ import ContatoClient from './ContatoClient';
 
 export const metadata: Metadata = {
   title: 'Contato – Meu Site Flores',
-  description: 'Entre em contato conosco para dúvidas e informações.',
+  description: 'Entre em contato conosco para dúvidas e informações.'
 };
 
 export default function ContactPage() {

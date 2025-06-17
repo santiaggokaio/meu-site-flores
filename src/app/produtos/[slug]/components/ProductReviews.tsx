@@ -14,18 +14,18 @@ interface Props {
 export default function ProductReviews({ reviews }: Props) {
   return (
     <section className="mt-12">
-      <h2 className="text-2xl font-semibold text-textDark mb-6 uppercase">Avaliações</h2>
+      <h2 className="mb-6 text-2xl font-semibold uppercase text-textDark">Avaliações</h2>
       <div className="space-y-6">
         {reviews.length === 0 && (
           <p className="text-textDark">Nenhuma avaliação ainda.</p>
         )}
         {reviews.map((rev) => (
           <div key={rev.id} className="border-b border-gray-200 pb-4">
-            <p className="text-textDark font-medium mb-1">
+            <p className="mb-1 font-medium text-textDark">
               {rev.author} 
               <span className="ml-2 text-sm text-gray-500">({rev.rating} ⭐)</span>
             </p>
-            <p className="text-textDark leading-relaxed">{rev.comment}</p>
+            <p className="leading-relaxed text-textDark">{rev.comment}</p>
           </div>
         ))}
       </div>

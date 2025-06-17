@@ -1,4 +1,4 @@
-// data/categorias.ts
+// src/data/categorias.ts
 
 export interface Categoria {
   slug: string;
@@ -6,6 +6,10 @@ export interface Categoria {
   description: string;
 }
 
+/**
+ * Lista estática de categorias de flores.
+ * Mantida em memória para uso em Server Components.
+ */
 const categorias: Categoria[] = [
   { slug: 'buques', name: 'Buquês', description: 'Buquês de flores variadas.' },
   { slug: 'cestas', name: 'Cestas', description: 'Cestas florais para presentes.' },

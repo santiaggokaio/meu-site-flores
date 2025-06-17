@@ -1,31 +1,40 @@
 // src/components/OffersSection.tsx
+import React, { Suspense } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import Loader from '@/components/Loader'
 
-'use client';
+export default function OffersSection(): JSX.Element {
+  // Dados estáticos - se futuramente vierem da API, mova fetch para cá
+  const limitedEditionItems = [1, 2, 3, 4]
 
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-
-export default function OffersSection() {
   return (
-    <section className="py-12 bg-white">
+    <section
+      id="offers-section"
+      aria-labelledby="offers-section-heading"
+      className="bg-white py-12"
+    >
+      <h2 id="offers-section-heading" className="sr-only">
+        Seção de Ofertas
+      </h2>
+
       <div className="container mx-auto px-6">
         {/* Banner principal de Ofertas */}
-        <div className="relative w-full h-64 mb-8 overflow-hidden rounded-2xl">
+        <div className="relative mb-8 h-64 w-full overflow-hidden rounded-2xl">
           <Image
             src="/images/offers/limited-offer-banner.jpg"
-            alt="Ofertas Limitadas"
+            alt="Banner: Ofertas Limitadas"
             fill
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-black/30 flex flex-col justify-center items-start p-8">
-            <h3 className="text-3xl md:text-4xl text-white font-bold mb-2">
+          <div className="absolute inset-0 flex flex-col items-start justify-center bg-black/30 p-8">
+            <h3 className="mb-2 text-3xl font-bold text-white md:text-4xl">
               Ofertas Limitadas!
             </h3>
             <Link
               href="/produtos"
-              className="inline-block bg-pink-600 hover:bg-pink-700 text-white px-6 py-2 rounded-full font-semibold transition"
+              className="inline-block rounded-full bg-pink-600 px-6 py-2 font-semibold text-white transition hover:bg-pink-700"
             >
               Ver Ofertas
             </Link>
@@ -33,33 +42,35 @@ export default function OffersSection() {
         </div>
 
         {/* Edição Limitada */}
-        <h4 className="text-2xl font-bold text-gray-800 mb-6">Edição Limitada</h4>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[1, 2, 3, 4].map((i) => (
-            <Link
-              href={`/produtos/edicao-${i}`}
-              key={i}
-              className="block bg-white rounded-2xl overflow-hidden shadow-lg group"
-            >
-              <div className="relative w-full h-56">
-                <Image
-                  src={`/images/offers/edicao-${i}.jpg`}
-                  alt={`Edição Limitada ${i}`}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  priority
-                />
-              </div>
-              <div className="p-4">
-                <h5 className="text-base font-semibold text-gray-800 mb-1">
-                  Edição {i}
-                </h5>
-                <p className="text-pink-600 font-bold">R$ 199,90</p>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <h4 className="mb-6 text-2xl font-bold text-gray-800">Edição Limitada</h4>
+        <Suspense fallback={<Loader />}>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {limitedEditionItems.map((i) => (
+              <Link
+                href={`/produtos/edicao-${i}`}
+                key={i}
+                className="group block overflow-hidden rounded-2xl bg-white shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+              >
+                <div className="relative h-56 w-full">
+                  <Image
+                    src={`/images/offers/edicao-${i}.jpg`}
+                    alt={`Flor da Edição Limitada nº ${i}`}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    priority
+                  />
+                </div>
+                <div className="p-4">
+                  <h5 className="mb-1 text-base font-semibold text-gray-800">
+                    Edição {i}
+                  </h5>
+                  <p className="font-bold text-pink-600">R$ 199,90</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </Suspense>
       </div>
     </section>
-  );
+  )
 }

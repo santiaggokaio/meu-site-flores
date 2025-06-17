@@ -28,15 +28,15 @@ export default function ProdutosPage() {
 
   return (
     <main className="container mx-auto px-6 py-16">
-      <h1 className="text-3xl font-semibold text-textDark mb-8 uppercase">
+      <h1 className="mb-8 text-3xl font-semibold uppercase text-textDark">
         Catálogo de Produtos
       </h1>
       {/* Barra de ordenação e contagem */}
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
-        <p className="text-textDark text-sm mb-4 sm:mb-0">
+      <div className="mb-8 flex flex-col items-center justify-between sm:flex-row">
+        <p className="mb-4 text-sm text-textDark sm:mb-0">
           {totalCount} produtos encontrados
         </p>
-        <select className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none">
+        <select className="rounded-md border border-gray-300 px-4 py-2 focus:outline-none">
           <option value="default">Ordenar por: Padrão</option>
           <option value="titleAsc">Título Crescente</option>
           <option value="titleDesc">Título Decrescente</option>

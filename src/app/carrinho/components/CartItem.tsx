@@ -26,7 +26,7 @@ export default function CartItem({ product, quantity }: Props) {
         alt={product.name}
         width={80}
         height={80}
-        className="object-cover rounded"
+        className="rounded object-cover"
       />
       <div className="flex-1">
         <p className="font-medium">{product.name}</p>
@@ -38,7 +38,7 @@ export default function CartItem({ product, quantity }: Props) {
           min={1}
           onChange={(e) => updateQuantity(product.id, Number(e.target.value))}
           aria-label="Quantidade"
-          className="border w-16 text-center"
+          className="w-16 border text-center"
         />
       </div>
       <button

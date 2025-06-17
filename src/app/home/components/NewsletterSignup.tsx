@@ -15,33 +15,33 @@ export default function NewsletterSignup() {
   };
 
   return (
-    <section className="py-12 bg-pink-50">
+    <section className="bg-pink-50 py-12">
       <div className="container mx-auto px-6 text-center">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 uppercase">
+        <h2 className="mb-4 text-2xl font-bold uppercase text-gray-800">
           Inscreva-se e ganhe 10% de desconto
         </h2>
         {!subscribed ? (
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col sm:flex-row justify-center gap-4"
+            className="flex flex-col justify-center gap-4 sm:flex-row"
           >
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Seu e-mail"
-              className="px-4 py-2 rounded-full border border-gray-300 w-full max-w-md"
+              className="w-full max-w-md rounded-full border border-gray-300 px-4 py-2"
               required
             />
             <button
               type="submit"
-              className="bg-pink-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-pink-700 transition"
+              className="rounded-full bg-pink-600 px-6 py-2 font-semibold text-white transition hover:bg-pink-700"
             >
               Inscrever
             </button>
           </form>
         ) : (
-          <p className="text-green-600 font-semibold">
+          <p className="font-semibold text-green-600">
             Obrigado por se inscrever!
           </p>
         )}

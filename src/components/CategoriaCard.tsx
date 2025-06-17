@@ -12,9 +12,9 @@ type Props = {
 
 export default function CategoriaCard({ category }: Props) {
   return (
-    <div className="border rounded-lg overflow-hidden">
+    <div className="overflow-hidden rounded-lg border">
       <Link href={`/categorias/${category.slug}`}>
-        <div className="relative w-full h-40">
+        <div className="relative h-40 w-full">
           <Image
             src={category.imageUrl}
             alt={category.name}

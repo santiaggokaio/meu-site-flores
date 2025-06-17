@@ -15,21 +15,21 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart()
 
   return (
-    <div className="relative border rounded-lg overflow-hidden">
+    <div className="relative overflow-hidden rounded-lg border">
       <Link href={`/produtos/${product.slug}`}>
-        <div className="w-full h-56 relative">
+        <div className="relative h-56 w-full">
           <Image
             src={product.image}
             alt={product.name}
             layout="fill"
             objectFit="cover"
           />
-          <div className="absolute top-2 right-2 flex gap-2">
+          <div className="absolute right-2 top-2 flex gap-2">
             <button aria-label="Favoritar">
-              <HeartIcon className="w-5 h-5 text-white" />
+              <HeartIcon className="size-5 text-white" />
             </button>
             <button aria-label="Comparar">
-              <ArrowsRightLeftIcon className="w-5 h-5 text-white" />
+              <ArrowsRightLeftIcon className="size-5 text-white" />
             </button>
           </div>
         </div>
@@ -47,7 +47,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               image: product.image,
             })
           }
-          className="mt-4 w-full bg-primary text-white py-2 rounded-md"
+          className="mt-4 w-full rounded-md bg-primary py-2 text-white"
         >
           Adicionar ao Carrinho
         </button>

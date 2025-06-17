@@ -11,19 +11,19 @@ interface ProductDetailProps {
 
 export default function ProductDetail({ product }: ProductDetailProps) {
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="flex flex-col md:flex-row gap-6">
+    <div className="mx-auto max-w-4xl p-6">
+      <div className="flex flex-col gap-6 md:flex-row">
         <Image
           src={product.image}
           alt={product.name}
           width={500}
           height={500}
-          className="object-cover rounded-lg"
+          className="rounded-lg object-cover"
         />
         <div>
-          <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-          <p className="text-gray-700 mb-4">{product.description}</p>
-          <p className="text-2xl font-semibold text-rose-600 mb-6">
+          <h1 className="mb-4 text-3xl font-bold">{product.name}</h1>
+          <p className="mb-4 text-gray-700">{product.description}</p>
+          <p className="mb-6 text-2xl font-semibold text-rose-600">
             {formatPrice(product.price)}
           </p>
           <AddToCartButton product={product} />

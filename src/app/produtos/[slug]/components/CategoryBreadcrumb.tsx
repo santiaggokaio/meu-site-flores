@@ -8,7 +8,7 @@ interface Props {
 export default function CategoryBreadcrumb({ category }: Props) {
   return (
     <nav aria-label="Breadcrumb" className="mb-6 text-sm text-gray-600">
-      <ol className="list-none p-0 inline-flex">
+      <ol className="inline-flex list-none p-0">
         <li className="flex items-center">
           <Link href="/" className="hover:text-primary">Home</Link>
           <span className="mx-2">/</span>

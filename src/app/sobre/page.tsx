@@ -1,5 +1,4 @@
 import React from 'react';
-import TeamSection from './components/TeamSection';
 import MissionVision from './components/MissionVision';
 
 export async function generateMetadata() {
@@ -12,9 +11,8 @@ export async function generateMetadata() {
 export default function SobrePage() {
   return (
     <main className="container mx-auto px-6 py-16">
-      <h1 className="text-3xl font-semibold text-textDark mb-8 uppercase">Sobre Nós</h1>
+      <h1 className="mb-8 text-3xl font-semibold uppercase text-textDark">Sobre Nós</h1>
       <MissionVision />
-      <TeamSection />
     </main>
   );
 }

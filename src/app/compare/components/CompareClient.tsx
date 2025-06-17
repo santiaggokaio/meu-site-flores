@@ -1,7 +1,7 @@
 // File: src/app/compare/components/CompareClient.tsx
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useCompare } from '@/context/CompareContext';
 import CompareBreadcrumb from './CompareBreadcrumb';
 import CompareTable from './CompareTable';
@@ -9,11 +9,7 @@ import CompareActions from './CompareActions';
 import { formatCurrency } from '@/utils/formatCurrency';
 
 export default function CompareClient() {
-  const { compare, loadCompareFromStorage } = useCompare();
-
-  useEffect(() => {
-    loadCompareFromStorage();
-  }, [loadCompareFromStorage]);
+  const { compare } = useCompare();
 
   // Para a tabela: transforma cada CompareItem em { id, name, priceFormatted, imageUrl }
   const mappedForTable = compare.map((item) => ({
@@ -24,7 +20,6 @@ export default function CompareClient() {
   }));
 
   // Para as ações: CompareActions precisa do shape { id, name, price, imageUrl }
-  // portanto, passamos aqui o próprio array “compare”, que já contém price: number
   return (
     <main>
       <CompareBreadcrumb />

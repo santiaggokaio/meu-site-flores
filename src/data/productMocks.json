@@ -1,12 +1,30 @@
 [
   {
     "id": "3",
-    "name": "Cesta de Café da Manhã",
-    "price": 159.9,
+    "slug": "cesta-de-cafe-da-manha",
+    "title": "Cesta de Café da Manhã",
     "description": "Cesta com flores, frutas e itens para um café especial.",
-    "image": "/images/products/Cesta-de-Café-da-Manhã.jpg",
-    "category": "cestas",
+    "category": {
+      "id": "cestas",
+      "name": "Cestas",
+      "slug": "cestas"
+    },
+    "price": {
+      "value": 159.9,
+      "currency": "BRL",
+      "formatted": "R$ 159,90"
+    },
+    "compareAtPrice": null,
+    "images": [
+      {
+        "url": "/images/products/cesta-de-cafe-da-manha.jpg",
+        "alt": "Cesta de Café da Manhã"
+      }
+    ],
     "stock": 20,
-    "rating": 4.9
+    "rating": 4.9,
+    "available": true,
+    "createdAt": "2025-01-15T10:00:00.000Z",
+    "updatedAt": "2025-05-20T14:30:00.000Z"
   }
 ]

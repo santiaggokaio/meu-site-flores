@@ -31,16 +31,16 @@ export default function CompareActions({ items }: Props) {
   };
 
   return (
-    <div className="flex gap-4 my-4">
+    <div className="my-4 flex gap-4">
       <button
         onClick={handleAddAllToCart}
-        className="bg-green-600 text-white py-2 px-4 rounded"
+        className="rounded bg-green-600 px-4 py-2 text-white"
       >
         Adicionar Todos ao Carrinho
       </button>
       <button
         onClick={clearCompare}
-        className="bg-red-600 text-white py-2 px-4 rounded"
+        className="rounded bg-red-600 px-4 py-2 text-white"
       >
         Limpar Comparação
       </button>

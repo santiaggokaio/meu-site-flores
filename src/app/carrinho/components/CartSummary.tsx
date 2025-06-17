@@ -36,14 +36,14 @@ export default function CartSummary({ subtotal }: CartSummaryProps) {
   };
 
   return (
-    <aside className="border p-4 rounded-md w-full md:w-1/3">
-      <h2 className="text-xl font-semibold mb-2">Resumo do Pedido</h2>
+    <aside className="w-full rounded-md border p-4 md:w-1/3">
+      <h2 className="mb-2 text-xl font-semibold">Resumo do Pedido</h2>
       <p>
         Subtotal: <span>{formatCurrency(subtotal)}</span>
       </p>
       <button
         onClick={handleCheckout}
-        className="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+        className="mt-4 w-full rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
       >
         Prosseguir para Pagamento
       </button>

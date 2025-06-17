@@ -1,10 +1,27 @@
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
 
-// Importa diretamente do diretório src/data
-import produtos from '../src/data/products.json';
+async function generateMocks() {
+  try {
+    // Diretório raiz do projeto
+    const rootDir = process.cwd();
+    
+    // Caminhos dos arquivos de origem e destino
+    const dataFile = path.join(rootDir, 'src', 'data', 'products.json');
+    const mocksFile = path.join(rootDir, 'src', 'data', 'productMocks.json');
 
-fs.writeFileSync(
-  path.resolve(__dirname, '../src/data/productMocks.json'),
-  JSON.stringify(produtos, null, 2),
-);
+    // Lê e parseia os dados originais
+    const content = await fs.readFile(dataFile, 'utf-8');
+    const products = JSON.parse(content);
+
+    // Gera o arquivo de mocks com indentação de 2 espaços
+    await fs.writeFile(mocksFile, JSON.stringify(products, null, 2), 'utf-8');
+    console.log(`✅ productMocks.json gerado em: ${mocksFile}`);
+  } catch (error) {
+    console.error('❌ Erro ao gerar productMocks.json:', error);
+    process.exit(1);
+  }
+}
+
+// Executa a função principal
+generateMocks();

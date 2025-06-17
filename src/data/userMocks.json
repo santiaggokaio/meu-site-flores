@@ -1,15 +1,36 @@
-[
+// src/data/userMocks.ts
+// Modernizado para TypeScript e seguindo padrões do projeto.
+
+// Tipagens para usuários e endereços
+export interface Address {
+  street: string;
+  number: string;
+  city: string;
+  state: string;
+  zip: string;
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  address: Address;
+  orders: unknown[]; // Ajuste o tipo se houver definição específica para pedidos
+}
+
+// Mock de usuários
+export const userMocks: User[] = [
   {
-    "id": "user1",
-    "name": "Maria Oliveira",
-    "email": "maria@exemplo.com",
-    "address": {
-      "street": "Rua das Flores",
-      "number": "123",
-      "city": "São Paulo",
-      "state": "SP",
-      "zip": "01234-567"
+    id: "user1",
+    name: "Maria Oliveira",
+    email: "maria@exemplo.com",
+    address: {
+      street: "Rua das Flores",
+      number: "123",
+      city: "São Paulo",
+      state: "SP",
+      zip: "01234-567"
     },
-    "orders": []
+    orders: []
   }
-]
+];

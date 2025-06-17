@@ -7,8 +7,8 @@ interface Props {
 export default function ProductDescription({ description }: Props) {
   return (
     <section className="mt-12">
-      <h2 className="text-2xl font-semibold text-textDark mb-4 uppercase">Descrição do Produto</h2>
-      <p className="text-textDark leading-relaxed">{description}</p>
+      <h2 className="mb-4 text-2xl font-semibold uppercase text-textDark">Descrição do Produto</h2>
+      <p className="leading-relaxed text-textDark">{description}</p>
     </section>
   );
 }

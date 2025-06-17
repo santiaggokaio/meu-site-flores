@@ -11,10 +11,10 @@ export default function TermosDeUsoPage() {
   return (
     <main className="container mx-auto px-6 py-16">
       <section aria-labelledby="termos-title">
-        <h1 id="termos-title" className="text-3xl font-semibold text-textDark mb-8 uppercase">
+        <h1 id="termos-title" className="mb-8 text-3xl font-semibold uppercase text-textDark">
           Termos de Uso
         </h1>
-        <div className="space-y-6 text-textDark text-base leading-relaxed">
+        <div className="space-y-6 text-base leading-relaxed text-textDark">
           <p>
             Bem-vindo ao Meu Site Flores. Ao utilizar este site, você concorda
             com os seguintes termos...

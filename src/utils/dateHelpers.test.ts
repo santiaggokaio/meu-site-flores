@@ -1,9 +1,10 @@
-// src/utils/dateHelpers.test.ts
-import { formatDate } from './dateHelpers';
+// dateHelpers.test.ts
+import { formatDate } from '@/utils/dateHelpers';
 
 describe('formatDate', () => {
-  it('deve retornar YYYY-MM-DD a partir de uma Date', () => {
+  it('deve formatar uma instância de Date no formato YYYY-MM-DD', () => {
     const date = new Date('2025-06-04T10:20:30Z');
-    expect(formatDate(date)).toBe('2025-06-04');
+    const result = formatDate(date);
+    expect(result).toBe('2025-06-04');
   });
 });

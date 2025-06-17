@@ -1,5 +1,5 @@
 // .eslintrc.js
-// === 1) Aplique o patch do RushStack: basta “require” sem invocar
+// 1) Aplique o patch do RushStack: basta “require” sem invocar
 require('@rushstack/eslint-patch/modern-module-resolution');
 
 module.exports = {
@@ -23,6 +23,7 @@ module.exports = {
     'react-hooks',
     'jsx-a11y',
     'import',
+    'tailwindcss',
   ],
   extends: [
     'eslint:recommended',
@@ -31,6 +32,7 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:import/recommended',
+    'plugin:tailwindcss/recommended',  // 👉 vírgula adicionada aqui
     'next',
     'next/core-web-vitals',
   ],
@@ -41,13 +43,31 @@ module.exports = {
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
         moduleDirectory: ['node_modules', 'src/'],
+        alwaysTryTypes: true,
+      },
+      alias: {
+        map: [
+          ['@/components', './src/components'],
+          ['@/utils', './src/utils'],
+          ['@/app', './src/app'],
+        ],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },
   },
   rules: {
     'react/prop-types': 'off',
     'import/no-unresolved': 'off',
+
+    // Removi duplicata de explicit-module-boundary-types
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+
+    'jsx-a11y/alt-text': ['error'],
+    'jsx-a11y/anchor-is-valid': ['error'],
+
+    'tailwindcss/classnames-order': 'warn',
+    'tailwindcss/no-custom-classname': 'off',
   },
   overrides: [
     {

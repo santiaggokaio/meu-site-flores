@@ -1,4 +1,6 @@
-import React from 'react';
+// src/stories/Header.stories.tsx
+
+import React, { Suspense } from 'react';
 import { Meta, StoryFn } from '@storybook/react';
 import Header from '../components/Header';
 
@@ -11,7 +13,10 @@ const meta: Meta<HeaderProps> = {
 
 export default meta;
 
-// Como o Header não possui props, Template não precisa de args:
-const Template: StoryFn<HeaderProps> = () => <Header />;
+const Template: StoryFn<HeaderProps> = () => (
+  <Suspense fallback={<div>Loading Header…</div>}>
+    <Header />
+  </Suspense>
+);
 
 export const Default = Template.bind({});

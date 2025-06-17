@@ -8,26 +8,20 @@ import EmptyCart from './EmptyCart';
 import { formatCurrency } from '@/utils/formatCurrency';
 
 export default function CarrinhoClient() {
-  const { cart, loadCartFromStorage } = useCart();
+  const { cart } = useCart();
   const [subtotal, setSubtotal] = useState(0);
-
-  useEffect(() => {
-    loadCartFromStorage();
-  }, [loadCartFromStorage]);
 
   // Recalcula subtotal sempre que cart mudar
   useEffect(() => {
-    if (!cart || cart.length === 0) {
+    if (cart.length === 0) {
       setSubtotal(0);
       return;
     }
-    const total = cart.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
-    }, 0);
+    const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
     setSubtotal(total);
   }, [cart]);
 
-  if (!cart || cart.length === 0) {
+  if (cart.length === 0) {
     return <EmptyCart />;
   }
 
@@ -50,7 +44,6 @@ export default function CarrinhoClient() {
       </div>
 
       {/* Resumo do pedido */}
-      {/* Passamos 'subtotal' e 'cart' para o CartSummary */}
       <CartSummary subtotal={subtotal} />
     </div>
   );

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Hero() {
   return (
-    <section className="relative h-[80vh] w-full overflow-hidden flex items-center justify-center">
+    <section className="relative flex h-[80vh] w-full items-center justify-center overflow-hidden">
       {/* Imagem de fundo */}
       <Image
         src="/images/banner-flores.jpg"
@@ -14,16 +14,16 @@ export default function Hero() {
       />
 
       {/* Conteúdo sobreposto */}
-      <div className="relative z-10 text-center text-white px-6">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg">
+      <div className="relative z-10 px-6 text-center text-white">
+        <h1 className="mb-4 text-4xl font-bold drop-shadow-lg md:text-5xl">
           As flores perfeitas para qualquer ocasião
         </h1>
-        <p className="text-lg md:text-xl mb-6 drop-shadow-md">
+        <p className="mb-6 text-lg drop-shadow-md md:text-xl">
           Buquês, cestas e arranjos encantadores com entrega rápida
         </p>
         <Link
           href="/produtos"
-          className="inline-block bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-full text-base font-semibold shadow-md transition-all"
+          className="inline-block rounded-full bg-pink-600 px-6 py-3 text-base font-semibold text-white shadow-md transition-all hover:bg-pink-700"
         >
           Ver Produtos
         </Link>

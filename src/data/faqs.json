@@ -1,7 +1,32 @@
 [
   {
     "id": "1",
-    "question": "Como faço para rastrear meu pedido?",
-    "answer": "Após a confirmação do pagamento, enviamos um e-mail com o código de rastreio."
+    "question": "Quais formas de pagamento posso aproveitar para realizar minha compra?",
+    "answer": "Dispomos dos seguintes meios de pagamento: Cartão de crédito, cartão de débito e PIX."
+  },
+  {
+    "id": "2",
+    "question": "Qual é o custo de envio?",
+    "answer": "O custo de envio será mostrado com base ao total da compra e sua localização, no checkout, no momento antes da compra."
+  },
+  {
+    "id": "3",
+    "question": "Como se realizam os envios?",
+    "answer": "Trabalhamos com veículo próprio para entregas somente na cidade de Atibaia."
+  },
+  {
+    "id": "4",
+    "question": "Onde posso receber meu pedido?",
+    "answer": "Realizamos envios para toda cidade de ATIBAIA."
+  },
+  {
+    "id": "5",
+    "question": "Quanto tarda em chegar o pedido?",
+    "answer": "O tempo de entrega dependerá do tipo de produto selecionado. Em geral, pedidos realizados até as 11h. serão entregues até as 13h., após esse horário as entregas serão realizadas até as 18h."
+  },
+  {
+    "id": "6",
+    "question": "Que devo fazer se o produto não chega em bom estado?",
+    "answer": "Entre em contato com nós no Whatsapp (11)94330-3150 ou e-mail [email protected] e te enviaremos um novo."
   }
 ]

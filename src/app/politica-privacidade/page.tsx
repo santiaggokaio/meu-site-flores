@@ -10,10 +10,10 @@ export async function generateMetadata() {
 export default function PoliticaPrivacidadePage() {
   return (
     <main className="container mx-auto px-6 py-16">
-      <h1 className="text-3xl font-semibold text-textDark mb-8 uppercase">
+      <h1 className="mb-8 text-3xl font-semibold uppercase text-textDark">
         Política de Privacidade
       </h1>
-      <section aria-labelledby="lgpd-title" className="space-y-6 text-textDark text-base leading-relaxed">
+      <section aria-labelledby="lgpd-title" className="space-y-6 text-base leading-relaxed text-textDark">
         <h2 id="lgpd-title" className="text-2xl font-semibold">LGPD e Consentimento</h2>
         <p>
           Nós coletamos dados pessoais para…

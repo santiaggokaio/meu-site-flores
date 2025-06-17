@@ -1,28 +1,22 @@
-import { formatCurrency } from './formatCurrency';
+// src/utils/formatCurrency.test.ts
+
+import { formatCurrency } from '@/utils/formatCurrency';
 
 describe('formatCurrency', () => {
-  it('should format number to BRL currency', () => {
-    const result = formatCurrency(1500);
-    expect(result).toBe('R$ 1.500,00');
+  const cases: Array<{ value: number; expected: string }> = [
+    { value: 1500, expected: 'R$\u00A01.500,00' },
+    { value: 1999.99, expected: 'R$\u00A01.999,99' },
+    { value: 0, expected: 'R$\u00A00,00' },
+    { value: -250, expected: '-R$\u00A0250,00' },
+  ];
+
+  test.each(cases)('formats %# → %s', ({ value, expected }) => {
+    expect(formatCurrency(value)).toBe(expected);
   });
 
-  it('should format number with decimal values correctly', () => {
-    const result = formatCurrency(1999.99);
-    expect(result).toBe('R$ 1.999,99');
-  });
-
-  it('should handle zero correctly', () => {
-    const result = formatCurrency(0);
-    expect(result).toBe('R$ 0,00');
-  });
-
-  it('should handle negative numbers', () => {
-    const result = formatCurrency(-250);
-    expect(result).toBe('-R$ 250,00');
-  });
-
-  it('should throw an error if input is not a number', () => {
-    // @ts-expect-error Testing invalid input
-    expect(() => formatCurrency('abc')).toThrow();
+  it('throws when input is not a finite number', () => {
+    // Casting via unknown para evitar any explícito
+    expect(() => formatCurrency('abc' as unknown as number)).toThrow(TypeError);
+    expect(() => formatCurrency(NaN)).toThrow(TypeError);
   });
 });

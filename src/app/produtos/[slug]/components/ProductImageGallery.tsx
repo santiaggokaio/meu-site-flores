@@ -13,7 +13,7 @@ export default function ProductImageGallery({ images }: Props) {
   return (
     <div className="space-y-4">
       {/* Imagem grande */}
-      <div className="w-full h-[400px] relative rounded-card overflow-hidden shadow-card">
+      <div className="relative h-[400px] w-full overflow-hidden rounded-card shadow-card">
         <Image
           src={images[selected]}
           alt={`Imagem do produto ${selected + 1}`}
@@ -28,7 +28,7 @@ export default function ProductImageGallery({ images }: Props) {
           <button
             key={idx}
             onClick={() => setSelected(idx)}
-            className={`w-20 h-20 relative rounded-card overflow-hidden border ${
+            className={`relative size-20 overflow-hidden rounded-card border ${
               idx === selected
                 ? 'border-primary'
                 : 'border-gray-300'

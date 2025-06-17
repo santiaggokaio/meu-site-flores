@@ -9,7 +9,7 @@ interface Faq {
 }
 
 interface Props {
-  faqs: Faq[];
+  faqs: ReadonlyArray<Faq>;
 }
 
 export default function FAQAccordion({ faqs }: Props) {
@@ -18,16 +18,16 @@ export default function FAQAccordion({ faqs }: Props) {
   return (
     <div className="space-y-4">
       {faqs.map((faq) => (
-        <div key={faq.id} className="border border-gray-200 rounded-card">
+        <div key={faq.id} className="rounded-card border border-gray-200">
           <button
-            className="w-full px-4 py-3 text-left text-textDark font-medium flex justify-between items-center"
+            className="flex w-full items-center justify-between px-4 py-3 text-left font-medium text-textDark"
             onClick={() => setOpenId(openId === faq.id ? null : faq.id)}
           >
             <span>{faq.question}</span>
             <span>{openId === faq.id ? '−' : '+'}</span>
           </button>
           {openId === faq.id && (
-            <div className="px-4 py-3 bg-gray-50 text-textDark">
+            <div className="bg-gray-50 px-4 py-3 text-textDark">
               {faq.answer}
             </div>
           )}

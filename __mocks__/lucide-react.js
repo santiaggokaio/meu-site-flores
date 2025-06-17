@@ -1,20 +1,36 @@
-// __mocks__/lucide-react.js
+import React, { forwardRef, createElement } from 'react';
 
-import { createElement } from 'react';
-
-// Marca como ES Module
+// Se precisar desse campo por compatibilidade de ESM/CJS:
 export const __esModule = true;
 
-// Exporte aqui todos os ícones que seus componentes importam de 'lucide-react'.
+// Mock específico:
 export const MessageCircle = (props) => {
   return createElement(
     'svg',
-    { 'data-testid': 'mock-icon', ...props },
+    { 'data-testid': 'MessageCircle', ...props },
     null
   );
 };
 
-// Se você importar mais ícones (HomeIcon, ShoppingCart, etc.), basta listá-los aqui:
-// export const HomeIcon = (props) => createElement('svg', { 'data-testid': 'home-icon', ...props });
-// export const ShoppingCart = (props) => createElement('svg', { 'data-testid': 'shopping-icon', ...props });
-// …e assim por diante.
+// Factory genérico (caso use para vários ícones):
+export const createMockIcon = (name: string) => {
+  const Component = forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>(
+    (props, ref) => {
+      const { 'data-testid': dataTestId = name, ...rest } = props;
+      return (
+        <svg
+          data-testid={dataTestId}
+          ref={ref}
+          role="img"
+          aria-hidden="true"
+          {...rest}
+        />
+      );
+    }
+  );
+  Component.displayName = name;
+  return Component;
+};
+
+// Exemplo de uso do factory:
+export const AnotherIcon = createMockIcon('AnotherIcon');

@@ -10,12 +10,12 @@ const benefits = [
 
 export default function TrustSection() {
   return (
-    <section aria-label="Benefícios" className="py-12 bg-gray-50">
-      <div className="container mx-auto flex flex-col sm:flex-row justify-around items-center gap-6">
+    <section aria-label="Benefícios" className="bg-gray-50 py-12">
+      <div className="container mx-auto flex flex-col items-center justify-around gap-6 sm:flex-row">
         {benefits.map((b, i) => (
           <div key={i} className="flex flex-col items-center">
             <Image src={b.src} alt={b.alt} width={64} height={64} />
-            <span className="mt-2 text-gray-700 font-medium">{b.label}</span>
+            <span className="mt-2 font-medium text-gray-700">{b.label}</span>
           </div>
         ))}
       </div>

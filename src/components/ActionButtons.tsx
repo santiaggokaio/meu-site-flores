@@ -23,7 +23,7 @@ export default function ActionButtons({ productId }: Props) {
           })
         }
         aria-label="Adicionar ao carrinho"
-        className="bg-green-600 text-white py-2 px-4 rounded"
+        className="rounded bg-green-600 px-4 py-2 text-white"
       >
         Comprar
       </button>

@@ -22,14 +22,14 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       href={`/produtos/${product.id}`}
-      className="block border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+      className="block overflow-hidden rounded-lg border transition-shadow hover:shadow-lg"
     >
       <Image
         src={product.image}
         alt={product.name}
         width={300}
         height={300}
-        className="w-full h-48 object-cover"
+        className="h-48 w-full object-cover"
       />
       <div className="p-4">
         <h2 className="text-lg font-semibold">{product.name}</h2>

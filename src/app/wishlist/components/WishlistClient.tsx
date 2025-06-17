@@ -1,21 +1,16 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { useWishlist } from '@/context/WishlistContext';
+import React from 'react';
+import { useWishlist, WishlistItem } from '@/context/WishlistContext';
 import WishlistBreadcrumb from './WishlistBreadcrumb';
 import WishlistTable from './WishlistTable';
 import WishlistActions from './WishlistActions';
 import { formatCurrency } from '@/utils/formatCurrency';
 
 export default function WishlistClient() {
-  const { items, loadWishlistFromStorage } = useWishlist();
+  const { items } = useWishlist();
 
-  useEffect(() => {
-    loadWishlistFromStorage();
-  }, [loadWishlistFromStorage]);
-
-  // Mapeia WishlistItem → formato que WishlistTable (e suas células) espera: { id, name, priceFormatted, imageUrl }
-  const mapped = items.map((item) => ({
+  const mapped = items.map((item: WishlistItem) => ({
     id: item.id,
     name: item.name,
     priceFormatted: formatCurrency(item.price),

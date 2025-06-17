@@ -1,10 +1,6 @@
-import React, {
-  createContext,
-  useReducer,
-  useEffect,
-  ReactNode,
-  useContext,
-} from 'react';
+"use client";
+
+import React, { createContext, useReducer, useEffect, useCallback, useMemo, ReactNode, useContext } from 'react';
 
 export type CompareItem = {
   id: string;
@@ -13,9 +9,9 @@ export type CompareItem = {
   imageUrl: string;
 };
 
-type CompareState = {
+interface CompareState {
   items: CompareItem[];
-};
+}
 
 type CompareAction =
   | { type: 'LOAD_COMPARE'; payload: CompareItem[] }
@@ -34,84 +30,81 @@ function compareReducer(state: CompareState, action: CompareAction): CompareStat
 
     case 'ADD_TO_COMPARE': {
       if (state.items.length >= 4) return state;
-      const exists = state.items.find((item) => item.id === action.payload.id);
-      if (exists) return state;
+      if (state.items.some(item => item.id === action.payload.id)) return state;
       return { items: [...state.items, action.payload] };
     }
 
     case 'REMOVE_FROM_COMPARE':
-      return {
-        items: state.items.filter((item) => item.id !== action.payload.id),
-      };
+      return { items: state.items.filter(item => item.id !== action.payload.id) };
 
     case 'CLEAR_COMPARE':
       return { items: [] };
 
     default:
-      throw new Error(`Unhandled action type: ${JSON.stringify(action)}`);
+      throw new Error(`Unhandled action type: ${action}`);
   }
 }
 
-export type CompareContextType = {
+export interface CompareContextType {
   compare: CompareItem[];
   addToCompare: (item: CompareItem) => void;
   removeFromCompare: (id: string) => void;
   clearCompare: () => void;
-  loadCompareFromStorage: () => void;
-};
+}
 
 const CompareContext = createContext<CompareContextType | undefined>(undefined);
 
-export function CompareProvider({ children }: { children: ReactNode }) {
+export const CompareProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(compareReducer, initialState);
 
-  const loadCompareFromStorage = () => {
+  // Load from localStorage on mount
+  useEffect(() => {
     try {
-      const data = window.localStorage.getItem('compareItems');
+      const data = localStorage.getItem('compareItems');
       if (data) {
         const parsed: CompareItem[] = JSON.parse(data);
         dispatch({ type: 'LOAD_COMPARE', payload: parsed });
       }
     } catch {
-      // falha silenciosa
+      // silent fail
     }
-  };
+  }, []);
 
+  // Persist to localStorage on change
   useEffect(() => {
-    window.localStorage.setItem('compareItems', JSON.stringify(state.items));
+    localStorage.setItem('compareItems', JSON.stringify(state.items));
   }, [state.items]);
 
-  const addToCompare = (item: CompareItem) => {
+  const addToCompare = useCallback((item: CompareItem) => {
     dispatch({ type: 'ADD_TO_COMPARE', payload: item });
-  };
+  }, []);
 
-  const removeFromCompare = (id: string) => {
+  const removeFromCompare = useCallback((id: string) => {
     dispatch({ type: 'REMOVE_FROM_COMPARE', payload: { id } });
-  };
+  }, []);
 
-  const clearCompare = () => {
+  const clearCompare = useCallback(() => {
     dispatch({ type: 'CLEAR_COMPARE' });
-  };
+  }, []);
+
+  const value = useMemo(() => ({
+    compare: state.items,
+    addToCompare,
+    removeFromCompare,
+    clearCompare,
+  }), [state.items, addToCompare, removeFromCompare, clearCompare]);
 
   return (
-    <CompareContext.Provider
-      value={{
-        compare: state.items,
-        addToCompare,
-        removeFromCompare,
-        clearCompare,
-        loadCompareFromStorage,
-      }}
-    >
+    <CompareContext.Provider value={value}>
       {children}
     </CompareContext.Provider>
   );
-}
+};
 
-export function useCompare(): CompareContextType {
+export const useCompare = (): CompareContextType => {
   const context = useContext(CompareContext);
   if (!context) {
-    throw new Error('useCompare deve ser usado dentro de um <CompareProvider>');
+    throw new Error('useCompare must be used within a CompareProvider');
   }
   return context;
-}
+};

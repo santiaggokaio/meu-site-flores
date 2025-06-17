@@ -32,7 +32,7 @@ export default function ContatoClient() {
           id="nome"
           value={form.nome}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2"
+          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm"
         />
       </div>
       <div>
@@ -43,7 +43,7 @@ export default function ContatoClient() {
           id="email"
           value={form.email}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2"
+          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm"
         />
       </div>
       <div>
@@ -53,13 +53,13 @@ export default function ContatoClient() {
           id="mensagem"
           value={form.mensagem}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2"
+          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm"
           rows={4}
         />
       </div>
       <button
         type="submit"
-        className="bg-pink-600 text-white px-6 py-2 rounded-full"
+        className="rounded-full bg-pink-600 px-6 py-2 text-white"
       >
         Enviar Mensagem
       </button>

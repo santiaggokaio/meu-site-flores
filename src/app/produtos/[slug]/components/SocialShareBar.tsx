@@ -10,7 +10,7 @@ export default function SocialShareBar({ url, title }: Props) {
   const encodedTitle = encodeURIComponent(title);
 
   return (
-    <div className="flex gap-4 mt-6">
+    <div className="mt-6 flex gap-4">
       <a
         href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
         target="_blank"

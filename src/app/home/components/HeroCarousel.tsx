@@ -1,3 +1,5 @@
+// HeroCarousel.tsx
+
 'use client'
 
 import Image from 'next/image'
@@ -13,7 +15,7 @@ export default function HeroCarousel() {
   return (
     <Carousel>
       {slides.map(({ id, image, alt }) => (
-        <div key={id} className="relative w-full h-64 sm:h-96">
+        <div key={id} className="relative h-64 w-full sm:h-96">
           <Image
             src={image}
             alt={alt}
@@ -22,8 +24,8 @@ export default function HeroCarousel() {
             className="rounded-lg"
             priority
           />
-          <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-            <h2 className="text-white text-2xl sm:text-4xl font-bold">{alt}</h2>
+          <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+            <h2 className="text-2xl font-bold text-white sm:text-4xl">{alt}</h2>
           </div>
         </div>
       ))}

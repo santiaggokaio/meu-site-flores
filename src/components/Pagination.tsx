@@ -10,7 +10,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pr
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <nav aria-label="Paginação de produtos" className="flex justify-center my-8">
+    <nav aria-label="Paginação de produtos" className="my-8 flex justify-center">
       <ul className="flex gap-2">
         {pages.map((page) => (
           <li key={page}>
@@ -22,7 +22,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pr
                   : `Página ${page}`
               }
               aria-current={page === currentPage ? 'page' : undefined}
-              className={`px-4 py-2 rounded-md transition ${
+              className={`rounded-md px-4 py-2 transition ${
                 page === currentPage
                   ? 'bg-primary text-white'
                   : 'border border-gray-300 text-textDark hover:bg-grayLight'

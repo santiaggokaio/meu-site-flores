@@ -5,31 +5,29 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import allProducts from '@/data/products.json';
 import Breadcrumb from '@/components/Breadcrumb';
-// ← Ajuste: ProductDetail em src/components/ProductDetail.tsx
 import ProductDetail from '@/components/ProductDetail';
-// ← Ajuste: RelatedProductsGrid em src/app/produtos/[slug]/components/RelatedProductsGrid.tsx
 import RelatedProductsGrid from './components/RelatedProductsGrid';
 import type { Product as RawProduct } from '@/types';
 
+// generateStaticParams continua igual
 interface Params {
   slug: string;
-}
-
-interface Props {
-  params?: Promise<Params>;
-  searchParams?: Promise<Record<string, string>>;
 }
 
 export async function generateStaticParams(): Promise<Params[]> {
   return (allProducts as RawProduct[]).map((p) => ({ slug: p.id }));
 }
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
-  const params = await props.params;                  // ← sem `!`
-  if (!params) throw new Error('Params não fornecidos');
-  const { slug } = params;
+// Ajuste: params não opcional
+interface Props {
+  params: Promise<Params>;
+  searchParams: Promise<Record<string, string>>;
+}
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
   const prod = (allProducts as RawProduct[]).find((p) => p.id === slug);
+
   if (!prod) {
     return {
       title: 'Produto não encontrado',
@@ -48,11 +46,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   };
 }
 
-export default async function ProductPage(props: Props) {
-  const params = await props.params;                  // ← sem `!`
-  if (!params) notFound();
-  const { slug } = params;
-
+export default async function ProductPage({ params }: Props) {
+  const { slug } = await params;
   const raw = (allProducts as RawProduct[]).find((p) => p.id === slug);
   if (!raw) notFound();
 
@@ -60,7 +55,7 @@ export default async function ProductPage(props: Props) {
   const related = (allProducts as RawProduct[])
     .filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, 4)
-    .map((p) => ({ ...p, slug: p.id }))
+    .map((p) => ({ ...p, slug: p.id }));
 
   return (
     <main className="container mx-auto px-6 py-12">
@@ -76,7 +71,7 @@ export default async function ProductPage(props: Props) {
 
       {related.length > 0 && (
         <section className="mt-16">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6 uppercase">
+          <h2 className="mb-6 text-2xl font-bold uppercase text-gray-800">
             Produtos Relacionados
           </h2>
           <RelatedProductsGrid products={related} />

@@ -19,16 +19,16 @@ export default function NewArrivalsSection() {
   const novidades = (allProducts as ProductBasic[]).slice(0, 8); // primeiros 8 itens
 
   return (
-    <section aria-label="Novidades" className="py-12 bg-gray-50">
+    <section aria-label="Novidades" className="bg-gray-50 py-12">
       <div className="container mx-auto px-6">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6 uppercase">
+        <h2 className="mb-6 text-center text-2xl font-bold uppercase text-gray-800">
           Novidades
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
           {novidades.map((p) => (
             <div key={p.id} className="flex">
               <Link href={`/produtos/${p.id}`} className="w-full">
-                <div className="relative w-full h-56 overflow-hidden rounded-2xl shadow-lg">
+                <div className="relative h-56 w-full overflow-hidden rounded-2xl shadow-lg">
                   <Image
                     src={p.image}
                     alt={p.name}
@@ -41,7 +41,7 @@ export default function NewArrivalsSection() {
                   <h3 className="text-base font-semibold text-gray-800">
                     {p.name}
                   </h3>
-                  <p className="text-pink-600 font-bold mt-1">
+                  <p className="mt-1 font-bold text-pink-600">
                     {formatCurrency(p.price)}
                   </p>
                 </div>

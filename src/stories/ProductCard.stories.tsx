@@ -1,6 +1,8 @@
-import React from 'react'
-import { ProductCard } from '@/components/ProductCard'
-import { Product } from '@/types'
+// src/stories/ProductCard.stories.tsx
+
+import React from 'react';
+import { ProductCard } from '@/components/ProductCard';
+import { Product } from '@/types';
 
 const meta = {
   title: 'Components/ProductCard',
@@ -19,6 +21,6 @@ const sampleProduct: Product = {
   category: 'buques',
   stock: 10,
   rating: 4.5,
-}
+};
 
-export const Default = () => <ProductCard product={sampleProduct} />
+export const Default = () => <ProductCard product={sampleProduct} />;

@@ -21,7 +21,7 @@ export default function WhatsAppRedirect() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Entrar em contato via WhatsApp"
-      className="bg-green-500 text-white py-2 px-4 rounded"
+      className="rounded bg-green-500 px-4 py-2 text-white"
     >
       Finalizar pelo WhatsApp
     </a>

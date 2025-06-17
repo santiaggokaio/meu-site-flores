@@ -8,7 +8,7 @@ import type { Product } from '@/types'
 
 export const metadata: Metadata = {
   title: 'Resultados de Busca – Meu Site Flores',
-  description: 'Encontre produtos rapidamente usando o campo de busca.',
+  description: 'Encontre produtos rapidamente usando o campo de busca.'
 }
 
 export default function SearchPage() {

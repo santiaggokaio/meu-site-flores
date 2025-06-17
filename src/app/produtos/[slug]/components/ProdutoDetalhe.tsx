@@ -13,7 +13,7 @@ export default function ProdutoDetalhe({ product }: ProdutoDetalheProps) {
   return (
     <div className="space-y-4">
       <h1 className="text-3xl font-semibold">{product.name}</h1>
-      <p className="text-2xl text-primary font-bold">
+      <p className="text-2xl font-bold text-primary">
         R$ {product.price.toFixed(2).replace('.', ',')}
       </p>
       {/* Outras informações rápidas, como disponibilidade, SKU, etc. */}

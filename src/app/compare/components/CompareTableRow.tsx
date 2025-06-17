@@ -28,7 +28,7 @@ export default function CompareTableRow({ product }: CompareTableRowProps) {
     <tr className="border-b last:border-0">
       {/* Imagem */}
       <td className="px-6 py-4">
-        <div className="w-20 h-20 relative">
+        <div className="relative size-20">
           <Image
             src={product.imageUrl}
             alt={product.name}
@@ -40,12 +40,12 @@ export default function CompareTableRow({ product }: CompareTableRowProps) {
 
       {/* Nome */}
       <td className="px-6 py-4">
-        <span className="text-gray-800 font-medium">{product.name}</span>
+        <span className="font-medium text-gray-800">{product.name}</span>
       </td>
 
       {/* Preço */}
       <td className="px-6 py-4">
-        <span className="text-primary font-semibold">
+        <span className="font-semibold text-primary">
           R$ {product.price.toFixed(2).replace('.', ',')}
         </span>
       </td>
@@ -54,7 +54,7 @@ export default function CompareTableRow({ product }: CompareTableRowProps) {
       <td className="px-6 py-4 text-right">
         <button
           onClick={handleRemove}
-          className="text-red-600 hover:underline text-sm"
+          className="text-sm text-red-600 hover:underline"
         >
           Remover
         </button>

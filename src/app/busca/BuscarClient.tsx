@@ -39,18 +39,18 @@ export default function BuscarClient({ products }: BuscarClientProps) {
           defaultValue={query}
           type="text"
           placeholder="O que você procura?"
-          className="flex-1 border rounded-full px-4 py-2 focus:border-pink-600"
+          className="flex-1 rounded-full border px-4 py-2 focus:border-pink-600"
         />
         <button
           type="submit"
-          className="bg-pink-600 text-white px-6 py-2 rounded-full hover:bg-pink-700"
+          className="rounded-full bg-pink-600 px-6 py-2 text-white hover:bg-pink-700"
         >
-          <MagnifyingGlassIcon className="w-5 h-5" />
+          <MagnifyingGlassIcon className="size-5" />
           Buscar
         </button>
       </form>
 
-      <h2 className="text-2xl font-bold mt-8 mb-4">
+      <h2 className="mb-4 mt-8 text-2xl font-bold">
         {results.length} produto{results.length !== 1 && 's'}
       </h2>
 

@@ -12,15 +12,15 @@ export default function SidebarFilters() {
         onClick={() => setOpen(!open)}
         className="flex items-center space-x-2 text-sm font-medium text-gray-600 hover:text-gray-900 md:hidden"
       >
-        <FunnelIcon className="h-5 w-5" />
+        <FunnelIcon className="size-5" />
         <span>Filtrar</span>
       </button>
       <aside
         className={`${
           open ? 'block' : 'hidden'
-        } md:block w-full md:w-60 bg-white border-r mt-4 md:mt-0`}
+        } mt-4 w-full border-r bg-white md:mt-0 md:block md:w-60`}
       >
-        <div className="p-4 space-y-4">
+        <div className="space-y-4 p-4">
           <h3 className="text-lg font-semibold text-gray-900">Categorias</h3>
           <ul className="space-y-2">
             <li>

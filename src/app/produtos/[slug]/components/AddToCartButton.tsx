@@ -21,7 +21,7 @@ export default function AddToCartButton({ product }: Props) {
           image: product.image,
         })
       }
-      className="w-full md:w-auto bg-primary text-white uppercase py-3 px-8 rounded-button hover:bg-[#C2006D] transition"
+      className="w-full rounded-button bg-primary px-8 py-3 uppercase text-white transition hover:bg-[#C2006D] md:w-auto"
     >
       Adicionar ao Carrinho
     </button>

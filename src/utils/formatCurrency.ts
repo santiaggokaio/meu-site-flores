@@ -1,16 +1,26 @@
-// utils/formatCurrency.ts
+// src/utils/formatCurrency.ts
+
+/* Constantes de localização e moeda (BRL) */
+const LOCALE = 'pt-BR';
+const CURRENCY = 'BRL';
+
+// Instância única de Intl.NumberFormat para otimizar formatações repetidas
+const currencyFormatter = new Intl.NumberFormat(LOCALE, {
+  style: 'currency',
+  currency: CURRENCY,
+});
 
 /**
- * Converte um número em string no formato BRL (por exemplo, 1500 → "R$ 1.500,00").
- * Lança erro se o valor não for um número válido.
+ * Formata um número para o padrão de moeda brasileira (BRL).
+ *
+ * @param valor - Valor numérico a ser formatado.
+ * @returns Retorna a string formatada em BRL, ex: "R$ 1.500,00".
+ * @throws {TypeError} Quando o valor não é um número finito.
  */
 export function formatCurrency(valor: number): string {
-  if (typeof valor !== 'number' || Number.isNaN(valor)) {
-    throw new Error('formatCurrency: valor deve ser um número válido');
+  if (!Number.isFinite(valor)) {
+    throw new TypeError(`formatCurrency: valor inválido (${valor})`);
   }
 
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format(valor);
+  return currencyFormatter.format(valor);
 }

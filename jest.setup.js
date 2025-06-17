@@ -2,13 +2,14 @@
 
 import '@testing-library/jest-dom';
 import { act as reactAct, createElement } from 'react';
+import ReactTestUtils from 'react-dom/test-utils';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const TestUtils = require('react-dom/test-utils');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 // Monkey-patch: força todo call a ReactDOMTestUtils.act a usar React.act
-TestUtils.act = reactAct;
+ReactTestUtils.act = reactAct;
 
 // Mocks do Next/Image e lucide-react permanecem abaixo:
 jest.mock('next/image', () => ({

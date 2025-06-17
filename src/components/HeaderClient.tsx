@@ -1,0 +1,61 @@
+// src/components/HeaderClient.tsx
+'use client'
+
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import CartButton from '@/app/carrinho/components/CartButton'
+import CompareButton from '@/app/compare/components/CompareButton'
+import WishlistButton from '@/app/wishlist/components/WishlistButton'
+
+const navigation = [
+  { name: 'Início',    href: '/' },
+  { name: 'Catálogo',  href: '/categorias' },
+  { name: 'Contato',   href: '/contato' },
+  { name: 'Sobre',     href: '/sobre' },
+]
+
+export default function HeaderClient() {
+  const pathname = usePathname()
+
+  return (
+    <div className="flex h-16 items-center justify-between">
+      {/* Logo / Título */}
+      <Link href="/" className="text-2xl font-bold text-rose-600">
+        Flores Larissa
+      </Link>
+
+      {/* Navegação */}
+      <nav className="hidden space-x-6 md:flex">
+        {navigation.map((item) => (
+          <Link
+            key={item.name}
+            href={item.href}
+            className={`
+              text-sm font-medium
+              ${pathname === item.href
+                ? 'text-rose-600'
+                : 'text-gray-600 hover:text-gray-900'}
+            `}
+          >
+            {item.name}
+          </Link>
+        ))}
+      </nav>
+
+      {/* Ações (busca, comparar, wishlist, carrinho) */}
+      <div className="flex items-center space-x-4">
+        <Link
+          href="/busca"
+          aria-label="Buscar"
+          className="text-gray-600 hover:text-gray-900"
+        >
+          <MagnifyingGlassIcon className="size-6" />
+        </Link>
+        <CompareButton />
+        <WishlistButton />
+        <CartButton />
+      </div>
+    </div>
+  )
+}
